@@ -2,6 +2,7 @@ import User from '../authModels/user.js'
 import bcrypt from 'bcrypt'
 import AuthTokenService from './authTokenService.js'
 import Token from '../authModels/token.js'
+import ErrorsApi from '../../errorsServer/errorsApi.js'
 
 class AuthService {
     async registration({ login, password }) {
@@ -9,7 +10,7 @@ class AuthService {
         const checkUserDb = await User.findOne({ login })
 
         if (checkUserDb) {
-            return
+            throw ErrorsApi.badRequest("Already user create")
         }
 
         const hashPass = await bcrypt.hash(password, 5)
@@ -28,11 +29,15 @@ class AuthService {
 
         const user = await User.findOne({ login })
 
-        if (!user) return
+        if (!user) {
+            throw ErrorsApi.badRequest("Not the correct login")
+        }
 
         const checkPass = await bcrypt.compare(password, user.password)
 
-        if (!checkPass) return
+        if (!checkPass) {
+            throw ErrorsApi.badRequest("Not the correct password")
+        }
 
         const genTokens = await AuthTokenService.generateToken(login, user._id)
 
@@ -45,13 +50,15 @@ class AuthService {
     async refresh(refreshToken) {
 
         const token = await Token.findOne({ refreshToken })
+        
         if (!token) {
-            return
+            throw ErrorsApi.unAuthorization()
         }
 
         const validRefToken = await AuthTokenService.validateRefreshToken(refreshToken)
+        
         if (!validRefToken) {
-            return
+            throw ErrorsApi.unAuthorization()
         }
 
         const userID = token.user

@@ -1,5 +1,6 @@
 import authTokenService from '../authService/authTokenService.js'
 import User from '../authModels/user.js'
+import ErrorsApi from '../../errorsServer/errorsApi.js'
 
 export default function authUserRole(roles) {
     return async function (req, res, next) {
@@ -8,7 +9,7 @@ export default function authUserRole(roles) {
         const accessValidToken = await authTokenService.validateAccessToken(accessToken)
 
         if (!accessValidToken) {
-            return res.status(401).json("Не валиден аксес токен")
+            return next(ErrorsApi.unAuthorization())
         }
 
         const id = accessValidToken.id
@@ -23,7 +24,7 @@ export default function authUserRole(roles) {
         });
 
         if (!accessRole) {
-            return res.status(403).json("Отказано в доступе")
+            return next(ErrorsApi.badRequest("Forbidden", 403))
         }
 
         next()

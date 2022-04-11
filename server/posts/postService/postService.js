@@ -1,9 +1,9 @@
 import Post from '../postModel/post.js'
+import fileService from '../../fileService/fileService.js'
 
 class PostService {
     async getPost(filter) {
 
-        console.log("getPost");
         const { number, street, price, date } = filter
 
         var query = {
@@ -31,14 +31,19 @@ class PostService {
 
         return getFromDB
     }
-    async addPost(post) {
-        console.log("addPost");
-        const addToDB = await new Post(post)
+    async addPost(post, {images}) {
+
+        console.log("post----->", images);
+
+        const newPost = {
+            ...post,
+            images: images.map(image => fileService.saveFile(image))
+        }
+        const addToDB = await new Post(newPost)
         await addToDB.save()
         return
     }
     async deletePost(id) {
-        console.log("deletePost");
         await Post.deleteOne({ id })
         return
     }

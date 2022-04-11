@@ -2,11 +2,13 @@ import postService from '../postService/postService.js'
 
 class PostController {
     async getPost(req, res) {
+        console.log(req);
         const postFromDB = await postService.getPost(req.body)
         return res.json(postFromDB)
     }
     async addPost(req, res) {
-        await postService.addPost(req.body)
+        console.log(req);
+        await postService.addPost(req.body, req.files)
         return res.json("ADD POST")
     }
     async deletePost(req, res) {

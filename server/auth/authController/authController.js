@@ -1,53 +1,53 @@
 import authService from '../authService/authService.js'
+import ErrorsApi from '../../errorsServer/errorsApi.js'
 
 class AuthController {
 
-    async registration(req, res) {
+    async registration(req, res, next) {
+        try {
+            const reg = await authService.registration(req.body)
+            res.cookie('refreshToken', reg.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true })
+            return res.json({ accessToken: reg.accessToken })
+        } catch (error) {
+            next(error)
+        }
+    }
 
-        const reg = await authService.registration(req.body)
+    async login(req, res, next) {
 
-        if (!reg?.accessToken) {
-            return res.status(404).json("Пользователь уже создан")
+        try {
+            const log = await authService.login(req.body)
+            res.cookie('refreshToken', log.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true })
+            return res.json({ accessToken: log.accessToken })
+        } catch (error) {
+            next(error)
         }
 
-        res.cookie('refreshToken', reg.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true })
-        return res.json({ accessToken: reg.accessToken })
 
     }
 
-    async login(req, res) {
+    async refresh(req, res, next) {
 
-        const log = await authService.login(req.body)
-
-        if (!log?.accessToken) {
-            return res.status(404).json("Не правильный логин или пароль")
+        try {
+            const { refreshToken } = req.cookies
+            const ref = await authService.refresh(refreshToken)
+            res.cookie('refreshToken', ref.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true })
+            return res.json({ accessToken: ref.accessToken })
+        } catch (error) {
+            next(error)
         }
-
-        res.cookie('refreshToken', log.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true })
-        return res.json({ accessToken: log.accessToken })
     }
 
+    async logout(req, res, next) {
 
-    async refresh(req, res) {
-
-        const { refreshToken } = req.cookies
-        const ref = await authService.refresh(refreshToken)
-
-        if (!ref?.refreshToken) {
-            return res.status(401).json("Неавтризован")
+        try {
+            const { refreshToken } = req.cookies
+            await authService.logout(refreshToken)
+            res.clearCookie("refreshToken")
+            return next(ErrorsApi.unAuthorization())
+        } catch (error) {
+            next(error)
         }
-
-        res.cookie('refreshToken', ref.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true })
-        return res.json({ accessToken: ref.accessToken })
-    }
-
-    async logout(req, res) {
-
-        const { refreshToken } = req.cookies
-        await authService.logout(refreshToken)
-        res.clearCookie("refreshToken")
-        return res.status(401).json('Пользователь не авторизован')
-
     }
 }
 
