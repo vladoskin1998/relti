@@ -8,6 +8,8 @@ const User = new Schema(
         password: { type: String, required: true },
         token: { type: Schema.Types.ObjectId, ref: 'Token' },
         roles: { type: String, required: true, default: "USER" }
+    }, {
+        versionKey: false 
     }
 )
 

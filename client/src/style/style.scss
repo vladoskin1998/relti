@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+    padding-top: 85px;
+}
+
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.list {
+    position: relative;
+    width: 100%;        
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    row-gap: 20px;
+    flex-direction: column;
+    &-pagination{
+        margin: 30px;
+    }
+}
