@@ -26,7 +26,7 @@ export default function Navigation() {
 
     const handleMenuCloseUser = () => setAnchorElUser(null);
 
-    const handleMenuCloseFilter = () => setAnchorElUser(null);
+    const handleMenuCloseFilter = () => setAnchorElFilter(null);
 
     const menuId = 'primary-search-account-menu';
 

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import RangeSlider from './rangeSlider';
+import { RenderCbLab, BasicTextFields } from './renderFilter';
+
 
 export default function renderMenuFilter({
     anchorEl,
@@ -18,22 +19,22 @@ export default function renderMenuFilter({
         anchorEl={anchorEl}
         anchorOrigin={{
             vertical: 'top',
-            horizontal: 'right',
+            horizontal: 'left',
         }}
         id={menuId}
         keepMounted
         transformOrigin={{
             vertical: 'top',
-            horizontal: 'right',
+            horizontal: 'left',
         }}
         open={isMenuOpen}
         onClose={handleMenuClose}
     >
-        <MenuItem onClick={handleMenuClose}>
-            <RangeSlider />
+        <MenuItem sx={{ marginTop: '20px' }} autoFocus={false}>
+            <BasicTextFields />
         </MenuItem>
-        <MenuItem onClick={handleMenuClose}>
-            <RangeSlider />
+        <MenuItem autoFocus={false}>
+            <RenderCbLab />
         </MenuItem>
     </Menu>)
 }

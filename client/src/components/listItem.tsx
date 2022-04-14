@@ -10,10 +10,6 @@ export default function ListItem({post}:{post:PostItemInterface}) {
 
   const {city, street, address, price} = post
 
-  
-  // describe?: string,
-  // images?: string[],
-
   return (
     <Card sx={{ width: 785 }}>
       <CardActionArea>
