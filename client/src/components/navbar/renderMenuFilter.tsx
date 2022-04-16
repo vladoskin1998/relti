@@ -1,7 +1,7 @@
 import * as React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import { RenderCbLab, BasicTextFields } from './renderFilter';
+import { RenderCbLab, BasicTextFields, RadioButtonsGroup } from './renderFilter';
 
 
 export default function renderMenuFilter({
@@ -35,6 +35,9 @@ export default function renderMenuFilter({
         </MenuItem>
         <MenuItem autoFocus={false}>
             <RenderCbLab />
+        </MenuItem>
+        <MenuItem autoFocus={false}>
+            <RadioButtonsGroup />
         </MenuItem>
     </Menu>)
 }
