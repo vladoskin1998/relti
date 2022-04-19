@@ -22,10 +22,11 @@ app.use(ErrorsMidlleware);
 
 
 async function main() {
-    await mongoose.connect(URL_DB, { useUnifiedTopology: true, useNewUrlParser: true })
+    const DB = await mongoose.connect(URL_DB, { useUnifiedTopology: true, useNewUrlParser: true })
     try {
         app.listen(PORT, () => { console.log('SERVER WORK') })
     } catch (error) {
+        DB.disconnect();
         console.log(error.message)
     }
 }

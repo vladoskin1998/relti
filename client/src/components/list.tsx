@@ -15,7 +15,7 @@ export default function List(): ReactElement {
 
     const filter = useSelector((state: RootState) => state.changeFilter)
 
-    console.log(filter)
+    // console.log(filter)
 
     useEffect(() => {
         apiPost.post('/get-post', {
@@ -29,7 +29,7 @@ export default function List(): ReactElement {
             .catch(function (error) {
                 console.log(error);
             });
-    }, [page])
+    }, [page, filter])
 
     return (
         <>

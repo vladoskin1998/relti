@@ -1,7 +1,8 @@
-import React from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import { styled, alpha } from '@mui/material/styles';
+import { useDispatch } from 'react-redux'
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -43,13 +44,26 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function renderSearch() {
+export default function RenderSearch(): ReactElement {
+
+    const dispatch = useDispatch()
+    let [text, setText] = useState('')
+
+    useEffect(() => {
+        let timer = setTimeout(() => {
+            dispatch({ type: "F_CHANGE_STREET", payload: text })
+        }, 1500)
+        return () => clearTimeout(timer)
+    }, [text])
+
     return (
         <Search>
             <SearchIconWrapper>
                 <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
+                value={text}
+                onChange={e => setText(e.target.value)}
                 placeholder="Search street…"
                 inputProps={{ 'aria-label': 'search' }}
             />

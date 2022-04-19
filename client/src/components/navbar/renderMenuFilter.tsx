@@ -2,7 +2,7 @@ import * as React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { RenderCbLab, BasicTextFields, RadioButtonsGroup } from './renderFilter';
-
+import Box from '@mui/material/Box';
 
 export default function renderMenuFilter({
     anchorEl,
@@ -29,15 +29,16 @@ export default function renderMenuFilter({
         }}
         open={isMenuOpen}
         onClose={handleMenuClose}
+        sx={{ '&>div':{padding:"20px"} }}
     >
-        <MenuItem sx={{ marginTop: '20px' }} autoFocus={false}>
+        <Box component="div">
             <BasicTextFields />
-        </MenuItem>
-        <MenuItem autoFocus={false}>
+        </Box>
+        <Box component="div">
             <RenderCbLab />
-        </MenuItem>
-        <MenuItem autoFocus={false}>
+        </Box>
+        <Box component="div">
             <RadioButtonsGroup />
-        </MenuItem>
+        </Box>
     </Menu>)
 }

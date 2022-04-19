@@ -4,37 +4,42 @@ import fileService from '../../fileService/fileService.js'
 class PostService {
     async getPost(filter) {
 
-        const { number, street, price, date } = filter
-
-
-        console.log(number, street, price, date);
-
-        var query = {
-            street: street ? {$in:  street} : { $exists: true, $ne: null },
-            price: price ? { $gte: price.toPrice, $lte: price.fromPrice } : { $exists: true, $ne: null },
-            date: date ?  { $gte: date.toDate, $lte: date.fromDate } : { $exists: true, $ne: null },
+        const { number, street, price, rentOrBuy, select } = filter
+        
+        console.log("number--->", number, "street--->", street, "price---->", price, "rentOrBuy---->", rentOrBuy);
+        console.log(select);
+        //////////////////////////
+        let query = {
+            street: street ? { $regex: street } : { $exists: true, $ne: null },
+            price: price?.toPrice && price?.fromPrice
+                ? { $gte: price?.toPrice, $lte: price?.fromPrice }
+                : { $exists: true, $ne: null },
+            rentOrBuy: { $in: rentOrBuy },
         };
 
+        console.log(query);
+        //////////////////////////////////
         const options = {
             page: number,
             limit: 4,
-            sort: { _id: -1 },
+            sort: ['asc', 'desc'].includes(select) ? { price: select } : { date: select },
         };
 
 
         const getFromDB = await Post.paginate(query, options, function (err, result) {
 
             if (err) {
-            throw err}
+                throw err
+            }
 
-            const {docs, totalPages} = result
+            const { docs, totalPages } = result
 
-            return {docs, totalPages}
+            return { docs, totalPages }
         });
 
         return getFromDB
     }
-    async addPost(post, file ) {
+    async addPost(post, file) {
 
         const newPost = {
             ...post,

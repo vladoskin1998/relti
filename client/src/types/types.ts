@@ -1,3 +1,5 @@
+import {OPTIONS, SELECT} from '../enum/enum'
+
 export interface PostItemInterface{
     city: string,
     street: string,
@@ -7,8 +9,12 @@ export interface PostItemInterface{
     images?: string[],
 }
 
+export type RentOrBuyType = OPTIONS.BUY | OPTIONS.RENT
+export type SelectType = SELECT.ASC | SELECT.DESC | SELECT.START | SELECT.END  
+
 export interface FilterInterface{
     street: null | string,
-    price: null | {toPrice: string, fromPrice: string},
-    date: null | {toDate: string, fromDate: string}
+    price: {toPrice: string, fromPrice: string},
+    rentOrBuy: RentOrBuyType[],
+    select: SelectType
 }

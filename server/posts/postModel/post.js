@@ -9,6 +9,7 @@ const Post = new Schema(
         street: { type: String, required: true },
         address: { type: String, required: true },
         price: { type: Number, required: true },
+        rentOrBuy: {type: String, enum:["BUY", "RENT"], required: true, default: "RENT"},
         describe: String,
         images: [String],
         date: { type: Date, default: new Date() }
