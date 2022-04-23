@@ -15,6 +15,15 @@ postRouter.post('/update-post',
     //authUserRole(['ADMIN']),
     postController.updatePost)
 
+postRouter.post('/upload-file',async (req,res) => {
+    console.log("files -> ", await req.files)
+    console.log("body -> ", await req.body)
+    return res.json("upload-file")
+    // return res.json(req)
+})
+ 
+
+
 postRouter.delete('/delete-post',
     //authUserRole(['ADMIN']),
     postController.deletePost)

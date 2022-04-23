@@ -1,14 +1,18 @@
-import * as React from 'react';
-import MenuItem from '@mui/material/MenuItem';
+import React, { ReactElement, ReactNode } from 'react';
 import Menu from '@mui/material/Menu';
+import { SxProps } from '@mui/system';
 
-export default function RenderMenuUser({
+export default function Modal({
     anchorEl,
     handleMenuClose,
+    children,
+    sx,
 }: {
     anchorEl: null | HTMLElement,
     handleMenuClose: () => void,
-}) {
+    children?: ReactNode,
+    sx?:SxProps
+}): ReactElement {
 
     const isMenuOpen = Boolean(anchorEl);
     const menuId = 'primary-search-account-menu';
@@ -27,8 +31,8 @@ export default function RenderMenuUser({
         }}
         open={isMenuOpen}
         onClose={handleMenuClose}
+        sx={sx}
     >
-        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+        {children}
     </Menu>)
 }

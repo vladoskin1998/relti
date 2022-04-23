@@ -7,8 +7,8 @@ class PostController {
         return res.json(postFromDB)
     }
     async addPost(req, res) {
-        // console.log(req);
-        await postService.addPost(req.body, req.files)
+
+        await postService.addPost(req.body.post, req.files)
         return res.json("ADD POST")
     }
     async updatePost(req, res) {

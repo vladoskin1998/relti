@@ -11,6 +11,6 @@ export enum ROLE {
 export enum SELECT {
     ASC = "asc",
     DESC = "desc",
-    START = "1",
-    END = "-1"
+    START = 1,
+    END = -1
 }   

@@ -8,7 +8,7 @@ const initState: FilterInterface = {
     select: SELECT.END
 }
 
-export const changeFilter = (state = initState, action: { type: string, payload: any }):FilterInterface => {
+export const ChangeFilter = (state = initState, action: { type: string, payload: any }):FilterInterface => {
     switch (action.type) {
         case "F_CHANGE_STREET":
             state={...state, street: action.payload || null }

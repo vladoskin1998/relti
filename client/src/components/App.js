@@ -1,8 +1,9 @@
 import React from "react";
-import Router from './router.tsx'
 import Navigation from "./navbar/navigation.tsx";
-import List from './list.tsx';
+import List from './list/list.tsx';
 import '../style/style.scss'
+import NewPost from './new-post/newPost';
+import { Routes, Route, Link } from "react-router-dom";
 
 
 function App() {
@@ -11,9 +12,13 @@ function App() {
       <div className="nav">
         <Navigation />
       </div>
-      <div className="list">
-        <List />
-      </div>
+
+        <Routes>
+          <Route path="/" element={<List />} />
+          <Route path="/add-post" element={<NewPost />} />
+        </Routes>
+    
+
     </>
   );
 }

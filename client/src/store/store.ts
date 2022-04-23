@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { changeFilter } from '../reducer/changeFilter'
+import { ChangeFilter } from '../reducer/changeFilter'
+import { AddPost } from '../reducer/addPost'
 
 const store = configureStore({
     reducer: {
-        changeFilter,
+        ChangeFilter,
+        AddPost,
     }
 })
 

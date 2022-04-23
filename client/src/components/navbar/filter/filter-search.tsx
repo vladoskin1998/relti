@@ -44,7 +44,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function RenderSearch(): ReactElement {
+export default function FilterSearch(): ReactElement {
 
     const dispatch = useDispatch()
     let [text, setText] = useState('')

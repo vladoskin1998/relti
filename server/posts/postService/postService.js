@@ -5,10 +5,10 @@ class PostService {
     async getPost(filter) {
 
         const { number, street, price, rentOrBuy, select } = filter
-        
-        console.log("number--->", number, "street--->", street, "price---->", price, "rentOrBuy---->", rentOrBuy);
-        console.log(select);
-        //////////////////////////
+
+        // console.log("number--->", number, "street--->", street, "price---->", price, "rentOrBuy---->", rentOrBuy);
+        // console.log(select);
+        ///////// 
         let query = {
             street: street ? { $regex: street } : { $exists: true, $ne: null },
             price: price?.toPrice && price?.fromPrice
@@ -17,7 +17,7 @@ class PostService {
             rentOrBuy: { $in: rentOrBuy },
         };
 
-        console.log(query);
+     //   console.log(query);
         //////////////////////////////////
         const options = {
             page: number,
@@ -39,12 +39,20 @@ class PostService {
 
         return getFromDB
     }
-    async addPost(post, file) {
+    async addPost(post, files) {
+
+        const jpost = JSON.parse(post)
+
+        let images = []
+        for (let key in files) {
+            images.push(files[key])
+        }
 
         const newPost = {
-            ...post,
-            images: file?.images.map(image => fileService.saveFile(image))
+            ...jpost,
+            images: images.map(image => fileService.saveFile(image))
         }
+
         const addToDB = await new Post(newPost)
         await addToDB.save()
         return
