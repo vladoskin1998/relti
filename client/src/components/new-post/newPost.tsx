@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef, useState } from "react";
+import React, { ReactElement, useState } from "react";
 import Textarea from './textArea';
 import InputPost from './inputPost';
 import RadioPost from './radioPost';
@@ -9,8 +9,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from "../../store/store";
 import { apiPost } from '../../api/api'
 import { AxiosResponse } from 'axios'
-
-
 
 export default function NewPost(): ReactElement {
 
@@ -30,8 +28,8 @@ export default function NewPost(): ReactElement {
 
         formData.append("post", postJson)
 
-        
 
+        dispatch({ type: "LOADER", payload: true })
         apiPost.post('/add-post', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -40,9 +38,11 @@ export default function NewPost(): ReactElement {
         ).then((response: AxiosResponse<string>) => {
             setDroppedFiles([])
             dispatch({ type: 'AP_INETSTATE' })
+            dispatch({ type: "LOADER", payload: false })
         })
             .catch(function (error) {
                 console.log(error);
+                dispatch({ type: "LOADER", payload: false })
             });
     }
 
@@ -71,25 +71,5 @@ export default function NewPost(): ReactElement {
         </div>
     );
 }
-
-
-
-
-
-
-
-
-
-
-
-// city: { type: String, required: true },
-// street: { type: String, required: true },
-// address: { type: String, required: true },
-// price: { type: Number, required: true },
-// rentOrBuy: {type: String, enum:["BUY", "RENT"], required: true, default: "RENT"},
-// describe: String,
-// images: [String],
-
-
 
 
