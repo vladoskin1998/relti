@@ -14,3 +14,8 @@ export enum SELECT {
     START = 1,
     END = -1
 }   
+
+export enum AUTH{
+    SINGIN='singin',
+    SINGUP='singup'
+}

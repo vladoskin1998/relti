@@ -14,6 +14,8 @@ import Filter from './filter/filter'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import NavigationIcon from './navigationIcon'
 import { useNavigate } from "react-router-dom";
+import { ROLE } from '../../enum/enum'
+import { parseToken } from '../../actions/parseToken'
 
 export default function Navigation() {
 
@@ -24,13 +26,7 @@ export default function Navigation() {
 
     const hOProfile = (event: React.MouseEvent<HTMLElement>) => setAnchorElUser(event.currentTarget);
 
-    const hOFilter = (event: React.MouseEvent<HTMLElement>) => setAnchorElFilter(event.currentTarget);  
-
-    const hCProfile = () => setAnchorElUser(null);
-
-    const hCFilter = () => setAnchorElFilter(null);
-
-
+    const hOFilter = (event: React.MouseEvent<HTMLElement>) => setAnchorElFilter(event.currentTarget);
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -49,9 +45,14 @@ export default function Navigation() {
                     <NavigationIcon hOpen={hOFilter}>
                         <FilterAltIcon />
                     </NavigationIcon>
-                    <NavigationIcon hOpen={() => navigation("/add-post")}>
-                        <AddCircleOutlineIcon />
-                    </NavigationIcon>
+                    {
+                        ROLE.ADMIN === parseToken.payload.role ?
+                            <NavigationIcon hOpen={() => navigation("/add-post")}>
+                                <AddCircleOutlineIcon />
+                            </NavigationIcon >
+                            : <></>
+                    }
+
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
@@ -65,8 +66,8 @@ export default function Navigation() {
                     </Box>
                 </Toolbar>
             </AppBar>
-            <MenuUser anchorEl={anchorElUser} handleMenuClose={hCProfile} />
-            <Filter anchorEl={anchorElFilter} handleMenuClose={hCFilter} />
+            <MenuUser anchorEl={anchorElUser} handleMenuClose={() =>  setAnchorElUser(null)} />
+            <Filter anchorEl={anchorElFilter} handleMenuClose={() => setAnchorElFilter(null)} />
         </Box>
     );
 }

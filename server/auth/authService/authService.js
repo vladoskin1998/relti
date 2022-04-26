@@ -18,7 +18,7 @@ class AuthService {
         const user = await new User({ login, password: hashPass })
         await user.save()
 
-        const genTokens = await AuthTokenService.generateToken(login, user._id)
+        const genTokens = await AuthTokenService.generateToken(login, user._id, user.roles)
 
         await AuthTokenService.saveToken(genTokens.refreshToken, user._id)
 
@@ -39,7 +39,7 @@ class AuthService {
             throw ErrorsApi.badRequest("Not the correct password")
         }
 
-        const genTokens = await AuthTokenService.generateToken(login, user._id)
+        const genTokens = await AuthTokenService.generateToken(login, user._id, user.roles)
 
         await AuthTokenService.saveToken(genTokens.refreshToken, user._id)
 
@@ -64,7 +64,7 @@ class AuthService {
         const userID = token.user
         const user = await User.findOne({ userID })
 
-        const genTokens = await AuthTokenService.generateToken(user.login, user._id)
+        const genTokens = await AuthTokenService.generateToken(user.login, user._id, user.roles)
 
         await AuthTokenService.saveToken(genTokens.refreshToken, user._id)
 

@@ -5,11 +5,11 @@ import Token from '../authModels/token.js'
 
 class AuthTokenService {
 
-    async generateToken(login, id) {
+    async generateToken(login, id, role) {
 
         try {
             const refreshToken = jwt.sign({ login, id }, SECRET_REFRESH_KEY, { expiresIn: 90 })
-            const accessToken = jwt.sign({ login, id }, SECRET_ACCESS_KEY, { expiresIn: 30 })
+            const accessToken = jwt.sign({ login, id, role }, SECRET_ACCESS_KEY, { expiresIn: 30 })
             return { refreshToken, accessToken }
         } catch (error) {
             console.log(error.message)

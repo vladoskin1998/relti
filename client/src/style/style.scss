@@ -40,7 +40,7 @@ body {
             width: 40px;
             height: 40px;
             z-index: 200;
-            opacity: 0.3;
+            opacity: 0.15;
         }
         & .slick-next{
             top: 50%;
@@ -137,4 +137,24 @@ $color-loader: #1976d2;
   0% { left: 0; height: 30px; width: 15px }
   50% { height: 8px; width: 40px }
   100% { left: 235px; height: 30px; width: 15px}
+}
+
+.auth{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(90vh - 90px) ;
+    flex-direction: column;
+    row-gap: 20px;
+    &__input{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 350px;
+        row-gap: 15px;
+        & input{
+            display: block;
+            width: 100%;
+        }
+    }
 }

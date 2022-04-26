@@ -6,6 +6,7 @@ import NewPost from './new-post/newPost';
 import { Routes, Route } from "react-router-dom";
 import Loader from '../ui/loader.tsx';
 import { useSelector } from 'react-redux';
+import Auth from './auth/auth'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
             </div>
             <Routes>
                 <Route path="/" element={<List />} />
+                <Route path="/auth" element={<Auth />} />
                 <Route path="/add-post" element={<NewPost />} />
             </Routes>
             { loader && <Loader />}
