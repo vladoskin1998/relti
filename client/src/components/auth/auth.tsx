@@ -14,28 +14,33 @@ import Stack from '@mui/material/Stack';
 import { apiAuth } from '../../api/api'
 import { AxiosResponse } from 'axios'
 import { useDispatch } from 'react-redux'
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AUTH } from '../../enum/enum'
 import { NavigationStateInterface } from '../../types/types'
 
 
 export default function Auth() {
 
+
+
     const dispatch = useDispatch()
+
     const location = useLocation()
+
+    const state = location.state as NavigationStateInterface;
+
+    const navigate = useNavigate()
 
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const [showPas, setShowPass] = useState(false)
-
-    const state = location.state as NavigationStateInterface;
-
 
     const registrationProfile = () => {
         apiAuth.post('/registration', {
             login, password
         })
             .then(res => {
+                navigate(state?.from?.pathname)
                 dispatch({ type: "AUTH_UPDATE", payload: res.data.accessToken })
             })
             .catch(e => console.log(e))
@@ -47,19 +52,19 @@ export default function Auth() {
             login, password
         })
             .then(res => {
+                navigate(state?.from?.pathname)
                 dispatch({ type: "AUTH_UPDATE", payload: res.data.accessToken })
             })
             .catch(e => console.log(e))
     }
 
-
     return <Box component="div" className="auth">
         <Typography variant="h4" component="div" gutterBottom>
             {
-                   state.auth === AUTH.SINGUP
-                   ? "Registration"
-                   : "Login"
-               
+                state?.auth === AUTH.SINGUP
+                    ? "Registration"
+                    : "Login"
+
             }
         </Typography>
         <Box className="auth__input">
@@ -86,16 +91,21 @@ export default function Auth() {
                 />
             </FormControl>
         </Box>
-        <Stack direction="row" spacing={2}>
-            <Button>Forgot password</Button>
+        <Stack className='auth__button' spacing={2}>
             <Button variant="contained"
-            onClick={
-            state.auth === AUTH.SINGUP
-                ? registrationProfile
-                : loginProfile
-            }
+                onClick={
+                    state?.auth === AUTH.SINGUP
+                        ? registrationProfile
+                        : loginProfile
+                }
             >
-                Registration</Button>
+                {
+                    state?.auth === AUTH.SINGUP
+                        ? "Registration"
+                        : "Login"
+                }
+            </Button>
+            <Button>Forgot password</Button>
         </Stack>
     </Box>
 }

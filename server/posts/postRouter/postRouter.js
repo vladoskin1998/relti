@@ -7,9 +7,7 @@ const postRouter = new Router()
 
 postRouter.post('/get-post', postController.getPost)
 
-postRouter.post('/add-post',
-    //authUserRole(['ADMIN']),
-    postController.addPost)
+postRouter.post('/add-post', authUserRole(['ADMIN']), postController.addPost)
 
 postRouter.post('/update-post',
     //authUserRole(['ADMIN']),

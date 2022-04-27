@@ -3,6 +3,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Modal from '../../ui/modal';
 import { useNavigate } from "react-router-dom";
 import { AUTH } from '../../enum/enum'
+import { apiAuth } from '../../api/api'
+import { useDispatch } from 'react-redux';
 
 export default function RenderMenuUser({
     anchorEl,
@@ -13,20 +15,27 @@ export default function RenderMenuUser({
 }) {
 
     const navigation = useNavigate()
+    const dispatch = useDispatch()
+
 
     const singIn = () => {
-        navigation('/auth', {state : {auth: AUTH.SINGIN}})
+        navigation('/auth', { state: { auth: AUTH.SINGIN } })
         handleMenuClose()
     }
 
     const singUp = () => {
-        navigation('/auth', {state : {auth: AUTH.SINGUP}})
-          handleMenuClose()
+        navigation('/auth', { state: { auth: AUTH.SINGUP } })
+        handleMenuClose()
     }
 
     const exit = () => {
-        navigation('/auth', {state : {auth: AUTH.SINGIN}})
-          handleMenuClose()
+        navigation('/', { state: { auth: AUTH.SINGIN } })
+        dispatch({ type: "AUTH_DELETE" })
+        apiAuth.post('/logout')
+            .then(res => console.log(res.data))
+            .catch(e => console.log(e))
+
+        handleMenuClose()
     }
 
     return (<Modal

@@ -2,7 +2,7 @@ import postService from '../postService/postService.js'
 
 class PostController {
     async getPost(req, res) {
-        // console.log(req);
+        console.log("getpost");
         const postFromDB = await postService.getPost(req.body)
         return res.json(postFromDB)
     }

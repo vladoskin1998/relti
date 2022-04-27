@@ -18,7 +18,7 @@ export type SelectType = SELECT.ASC | SELECT.DESC | SELECT.START | SELECT.END
 
 export interface FilterInterface{
     street: null | string,
-    price: {toPrice: string, fromPrice: string},
+    price: {toPrice: string | null, fromPrice: string | null},
     rentOrBuy: RentOrBuyType[],
     select: SelectType
 }
@@ -28,5 +28,6 @@ export type authType = AUTH.SINGIN | AUTH.SINGUP
 
 export interface NavigationStateInterface{
     auth: authType,
+    from?: Location
 }
 

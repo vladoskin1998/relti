@@ -63,7 +63,10 @@ export default function FilterSearch(): ReactElement {
             </SearchIconWrapper>
             <StyledInputBase
                 value={text}
-                onChange={e => setText(e.target.value)}
+                onChange={e => setText(
+                    e.target.value
+                    
+                )}
                 placeholder="Search street…"
                 inputProps={{ 'aria-label': 'search' }}
             />

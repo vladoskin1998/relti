@@ -4,15 +4,14 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import Badge from '@mui/material/Badge';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import MenuUser from './menu-user';
 import FilterSearch from './filter/filter-search';
 import Filter from './filter/filter'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import NavigationIcon from './navigationIcon'
+import ContactPageIcon from '@mui/icons-material/ContactPage';
+import Tooltip from '@mui/material/Tooltip';
 import { useNavigate } from "react-router-dom";
 import { ROLE } from '../../enum/enum'
 import { parseToken } from '../../actions/parseToken'
@@ -32,42 +31,50 @@ export default function Navigation() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
-                        onClick={() => navigation("/")}
-                    >
-                        NATARELTI
-                    </Typography>
+                    <Tooltip title="Main">
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{ display: { xs: 'none', sm: 'block' }, cursor: "pointer" }}
+                            onClick={() => navigation("/")}
+                        >
+                            NATARELTI
+                        </Typography>
+                    </Tooltip>
                     <FilterSearch />
-                    <NavigationIcon hOpen={hOFilter}>
-                        <FilterAltIcon />
-                    </NavigationIcon>
+                    <Tooltip title="Filter">
+                        <IconButton size="large" color="inherit" onClick={hOFilter}>
+                            <FilterAltIcon />
+                        </IconButton>
+                    </Tooltip>
                     {
-                        ROLE.ADMIN === parseToken.payload.role ?
-                            <NavigationIcon hOpen={() => navigation("/add-post")}>
-                                <AddCircleOutlineIcon />
-                            </NavigationIcon >
+                        ROLE.ADMIN === parseToken.payload?.role ?
+                            <Tooltip title="Add new post">
+                                <IconButton size="large" color="inherit" onClick={() => navigation("/add-post")}>
+                                    <AddCircleOutlineIcon />
+                                </IconButton >
+                            </Tooltip>
                             : <></>
                     }
 
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="error">
-                                <MailIcon />
-                            </Badge>
-                        </IconButton>
-                        <NavigationIcon hOpen={hOProfile}>
-                            <AccountCircle />
-                        </NavigationIcon>
+                        <Box className='nav__route'>
+                            <Box onClick={() => navigation('/')} >Main</Box>
+                            <Box onClick={() => navigation('/about')} >About</Box>
+                            <Box onClick={() => navigation('/send')} >Mail</Box>
+                        </Box>
+                        <Tooltip title="Profile">
+                            <IconButton size="large" color="inherit" onClick={hOProfile}>
+                                <AccountCircle />
+                            </IconButton>
+                        </Tooltip>
                     </Box>
                 </Toolbar>
             </AppBar>
-            <MenuUser anchorEl={anchorElUser} handleMenuClose={() =>  setAnchorElUser(null)} />
+            <MenuUser anchorEl={anchorElUser} handleMenuClose={() => setAnchorElUser(null)} />
             <Filter anchorEl={anchorElFilter} handleMenuClose={() => setAnchorElFilter(null)} />
-        </Box>
+        </Box >
     );
 }

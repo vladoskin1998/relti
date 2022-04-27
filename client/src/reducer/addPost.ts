@@ -14,7 +14,7 @@ export const AddPost = (state = initState, action: { type: string, payload: any 
     switch (action.type) {
         case "AP__CITY":
             state = { ...state, city: action.payload }
-            return state;
+            return state
         case "AP__STREET":
             state = { ...state, street: action.payload }
             return state

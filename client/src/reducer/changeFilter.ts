@@ -12,7 +12,7 @@ export const ChangeFilter = (state = initState, action: { type: string, payload:
     switch (action.type) {
         case "F_CHANGE_STREET":
             state={...state, street: action.payload || null }
-            return state;
+            return state
         case "F_CHANGE_MINPRICE":
             state={...state, price: {...state.price, toPrice: action.payload || null}}
             return state
@@ -28,6 +28,9 @@ export const ChangeFilter = (state = initState, action: { type: string, payload:
             return state
         case "F_CHANGE_SELECT": 
             state={...state, select: action.payload}
+            return state
+        case "F_CHANGE_DEFAULT":
+            state={...initState}
             return state
         default:
             return initState;

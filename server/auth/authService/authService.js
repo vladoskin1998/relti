@@ -72,7 +72,7 @@ class AuthService {
     }
 
     async logout(refreshToken) {
-
+        console.log("logout");
         await AuthTokenService.deleteToken(refreshToken)
         return
 

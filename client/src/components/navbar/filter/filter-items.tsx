@@ -23,15 +23,12 @@ export function RenderCbLab() {
         dispatch({ type: "F_CHANGE_RENTBUY", payload: rb })
     }
 
-    console.log(SELECT);
-
-
     return (
         <FormControl>
             <FormGroup>
                 <FormLabel id="checkbox">Gender</FormLabel>
-                <FormControlLabel aria-labelledby="checkbox" control={<Checkbox checked={rentOrBuy.includes(OPTIONS.RENT)} onChange={() => changeRentBuy(OPTIONS.RENT)} />} label="Buy" />
-                <FormControlLabel aria-labelledby="checkbox" control={<Checkbox checked={rentOrBuy.includes(OPTIONS.BUY)} onChange={() => changeRentBuy(OPTIONS.BUY)} />} label="Rent" />
+                <FormControlLabel aria-labelledby="checkbox" control={<Checkbox checked={rentOrBuy.includes(OPTIONS.RENT)} onChange={() => changeRentBuy(OPTIONS.RENT)} />} label="Rent" />
+                <FormControlLabel aria-labelledby="checkbox" control={<Checkbox checked={rentOrBuy.includes(OPTIONS.BUY)} onChange={() => changeRentBuy(OPTIONS.BUY)} />} label="Buy" />
             </FormGroup>
         </FormControl>
     );
