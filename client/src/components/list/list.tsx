@@ -1,27 +1,26 @@
 import React, { ReactElement, useEffect, useState, useContext } from "react";
 import ListItem from './listItem'
-import { apiPost } from '../../api/api'
+import { api } from '../../api/api'
 import { AxiosResponse } from 'axios'
 import { PostItemInterface } from '../../types/types'
 import PaginationItem from './paginationItem'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../store/store'
-import LoaderContext from '../../context/loaderContext';
+import Context from '../../context/context';
 
 export default function List(): ReactElement {
 
     const [posts, setPost] = useState<PostItemInterface[]>([])
     const [page, setPage] = useState(1)
     const [totalPages, setTotalPages] = useState(0)
-    
-    const { setLoader } = useContext(LoaderContext)
+
+    const { setLoader } = useContext(Context)
 
     const filter = useSelector((state: RootState) => state.ChangeFilter)
 
-
-    useEffect(() => {
+    const getList = () => {
         setLoader(true)
-        apiPost.post('/get-post', {
+        api.post('/post/get-post', {
             number: page,
             ...filter
         })
@@ -34,12 +33,16 @@ export default function List(): ReactElement {
                 console.log(error);
                 setLoader(false)
             });
+    }
+
+    useEffect(() => {
+        getList()
     }, [page, filter])
 
     return (
         <div className="list">
             {
-                posts.map((it, index) => <ListItem post={it} key={index} />)
+                posts.map((it, index) => <ListItem post={it} key={index + it._id} getList={getList} />)
             }
             <div className="list-pagination">
                 <PaginationItem page={page} changePage={setPage} totalPages={totalPages} />

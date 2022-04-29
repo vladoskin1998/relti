@@ -5,11 +5,11 @@ import Stack from '@mui/material/Stack';
 export default function PaginationItem({
   page,
   changePage,
-  totalPages
+  totalPages,
 }: {
   page: number,
   changePage: (p: number) => void,
-  totalPages: number
+  totalPages: number,
 }): ReactElement {
   return (
     <Stack spacing={2}>

@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useState, useContext } from "react";
 import Textarea from './textArea';
 import InputPost from './inputPost';
 import RadioPost from './radioPost';
@@ -7,13 +7,15 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from "../../store/store";
-import { apiPost } from '../../api/api'
-import { AxiosResponse } from 'axios'
+import { api } from '../../api/api'
+import Context from '../../context/context';
+import { ALERT } from '../../enum/enum';
 
 export default function NewPost(): ReactElement {
 
-    const post = useSelector((state: RootState) => state.AddPost)
     const [droppedFiles, setDroppedFiles] = useState([])
+    const { setAlert } = useContext(Context)
+    const post = useSelector((state: RootState) => state.AddPost)
     const dispatch = useDispatch()
 
     const addPost = () => {
@@ -30,13 +32,14 @@ export default function NewPost(): ReactElement {
 
 
         dispatch({ type: "LOADER", payload: true })
-        apiPost.post('/add-post', formData, {
+        api.post('/post/add-post', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         }
-        ).then((response: AxiosResponse<string>) => {
+        ).then(() => {
             setDroppedFiles([])
+            setAlert(ALERT.SUCCESS)
             dispatch({ type: 'AP_INETSTATE' })
             dispatch({ type: "LOADER", payload: false })
         })

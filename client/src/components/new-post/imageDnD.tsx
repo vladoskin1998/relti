@@ -8,13 +8,6 @@ import SimCardDownloadIcon from '@mui/icons-material/SimCardDownload';
 
 export default function ImageDND({droppedFiles, setDroppedFiles }: {droppedFiles:any, setDroppedFiles: (f:any) => void }): ReactElement {
 
-    // const [droppedFiles, setDroppedFiles] = useState([])
-
-    // useEffect(() => {
-    //     setFile(droppedFiles)
-    // },[droppedFiles])
-    
-
     const handleFileDrop = useCallback(
         (item: any) => {
 

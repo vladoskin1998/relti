@@ -1,10 +1,12 @@
-import {OPTIONS, SELECT, ROLE, AUTH} from '../enum/enum'
+import {OPTIONS, SELECT, ROLE, AUTH, ALERT} from '../enum/enum'
 import Location from 'react-router-dom'
 
 export type RoleType = ROLE.ADMIN | ROLE.USER 
 export type RentOrBuyType = OPTIONS.BUY | OPTIONS.RENT
+export type AlertType = ALERT.ERROR | ALERT.SUCCESS | ALERT.NONE
 
 export interface PostItemInterface{
+    _id?: string,
     city: string,
     street: string,
     address: string,
@@ -15,6 +17,7 @@ export interface PostItemInterface{
 }
 
 export type SelectType = SELECT.ASC | SELECT.DESC | SELECT.START | SELECT.END  
+
 
 export interface FilterInterface{
     street: null | string,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navigation from "./navbar/navigation.tsx";
 import List from './list/list.tsx';
 import '../style/style.scss'
@@ -6,22 +6,37 @@ import NewPost from './new-post/newPost';
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Loader from '../ui/loader.tsx';
 import Auth from './auth/auth'
-import LoaderContext from '../context/loaderContext';
+import LoaderContext from '../context/context';
 import About from './about/about';
 import Send from './send/send';
-import { ROLE } from '../enum/enum'
-import { parseToken } from '../actions/parseToken'
+import { ROLE, ALERT } from '../enum/enum';
+import { parseToken } from '../actions/parseToken';
+import axios from 'axios';
+import AlertMessage from '../ui/message';
 
 function App() {
 
     const [loader, setLoader] = useState(false)
+    const [alert, setAlert] = useState(ALERT.NONE)
     
     let location = useLocation();
 
-    console.log(location)
+    useEffect(() => {
+        axios.post('http://localhost:5000/api/auth/refresh', {}, {withCredentials: true,})
+            .then((response) => {
+                if(response?.data?.accessToken){
+                    localStorage.setItem('accessToken', response?.data?.accessToken)
+                }
+                setLoader(false)
+            })
+            .catch(function (error) {
+                console.log(error);
+                setLoader(false)
+            });
+    }, [])
 
     return (
-        <LoaderContext.Provider value={{ loader, setLoader }}>
+        <LoaderContext.Provider value={{ setLoader, setAlert }}>
             <div className="nav">
                 <Navigation />
             </div>
@@ -42,8 +57,8 @@ function App() {
 
                 }
             </Routes>
-
             {loader && <Loader />}
+            <AlertMessage alert={alert}/>
         </LoaderContext.Provider>
     );
 }

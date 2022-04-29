@@ -5,7 +5,7 @@ import authRouter from './auth/authRouter/authRouter.js'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import router from './router.js'
-import ErrorsMidlleware from './midllewareServer/errorsMidlleware.js';
+import ErrorsMidlleware from './midlleware-server/errorsMidlleware.js';
 import path from 'path'
 import fileUpload from 'express-fileupload'
 

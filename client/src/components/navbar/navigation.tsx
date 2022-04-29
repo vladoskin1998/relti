@@ -10,7 +10,6 @@ import MenuUser from './menu-user';
 import FilterSearch from './filter/filter-search';
 import Filter from './filter/filter'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import ContactPageIcon from '@mui/icons-material/ContactPage';
 import Tooltip from '@mui/material/Tooltip';
 import { useNavigate } from "react-router-dom";
 import { ROLE } from '../../enum/enum'
@@ -57,7 +56,6 @@ export default function Navigation() {
                             </Tooltip>
                             : <></>
                     }
-
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <Box className='nav__route'>

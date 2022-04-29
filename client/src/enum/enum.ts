@@ -19,3 +19,9 @@ export enum AUTH{
     SINGIN='singin',
     SINGUP='singup'
 }
+
+export enum ALERT{
+    ERROR='error',
+    SUCCESS='success',
+    NONE='none'
+}

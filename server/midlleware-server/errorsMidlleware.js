@@ -1,4 +1,4 @@
-import ErrorsApi from '../errorsServer/errorsApi.js'
+import ErrorsApi from '../errors-server/errorsApi.js'
 
 export default function ErrorsMidlleware(err, req, res, next) {
 

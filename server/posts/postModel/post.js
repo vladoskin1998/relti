@@ -13,6 +13,7 @@ const Post = new Schema(
         describe: String,
         images: [String],
         date: { type: Date, default: new Date() }
+        
     }, {
         versionKey: false 
     }

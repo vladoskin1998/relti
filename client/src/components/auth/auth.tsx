@@ -40,7 +40,7 @@ export default function Auth() {
             login, password
         })
             .then(res => {
-                navigate(state?.from?.pathname)
+                navigate(state?.from?.pathname || '/')
                 dispatch({ type: "AUTH_UPDATE", payload: res.data.accessToken })
             })
             .catch(e => console.log(e))
@@ -52,7 +52,7 @@ export default function Auth() {
             login, password
         })
             .then(res => {
-                navigate(state?.from?.pathname)
+                navigate(state?.from?.pathname || '/')
                 dispatch({ type: "AUTH_UPDATE", payload: res.data.accessToken })
             })
             .catch(e => console.log(e))

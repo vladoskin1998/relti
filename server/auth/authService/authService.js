@@ -2,7 +2,7 @@ import User from '../authModels/user.js'
 import bcrypt from 'bcrypt'
 import AuthTokenService from './authTokenService.js'
 import Token from '../authModels/token.js'
-import ErrorsApi from '../../errorsServer/errorsApi.js'
+import ErrorsApi from '../../errors-server/errorsApi.js'
 
 class AuthService {
     async registration({ login, password }) {
@@ -49,6 +49,8 @@ class AuthService {
 
     async refresh(refreshToken) {
 
+        console.log(refreshToken) 
+
         const token = await Token.findOne({ refreshToken })
         
         if (!token) {
@@ -57,6 +59,7 @@ class AuthService {
 
         const validRefToken = await AuthTokenService.validateRefreshToken(refreshToken)
         
+
         if (!validRefToken) {
             throw ErrorsApi.unAuthorization()
         }
@@ -72,7 +75,6 @@ class AuthService {
     }
 
     async logout(refreshToken) {
-        console.log("logout");
         await AuthTokenService.deleteToken(refreshToken)
         return
 

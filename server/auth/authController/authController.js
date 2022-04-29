@@ -1,5 +1,5 @@
 import authService from '../authService/authService.js'
-import ErrorsApi from '../../errorsServer/errorsApi.js'
+import ErrorsApi from '../../errors-server/errorsApi.js'
 
 class AuthController {
 
