@@ -49,8 +49,6 @@ class AuthService {
 
     async refresh(refreshToken) {
 
-        console.log(refreshToken) 
-
         const token = await Token.findOne({ refreshToken })
         
         if (!token) {

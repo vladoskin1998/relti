@@ -58,9 +58,6 @@ export const TargetBox = (props: any): ReactElement => {
                 //    console.log('canDrop', item.files, item.items)
                 return true
             },
-            hover(item: any) {
-                //  console.log('hover', item.files, item.items)
-            },
             collect: (monitor: any) => {
                 const item = monitor.getItem()
                 if (item) {

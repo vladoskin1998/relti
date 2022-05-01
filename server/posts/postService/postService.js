@@ -61,7 +61,8 @@ class PostService {
 
     async deletePost(id) {
        
-        await Post.findByIdAndRemove(id)
+        let { images } = await Post.findByIdAndRemove(id)
+        images.map(image => fileService.deleteFile(image))
         return
     }
 }

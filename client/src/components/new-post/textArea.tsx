@@ -15,7 +15,7 @@ export default function Textarea(): ReactElement {
 
     return (<TextareaAutosize
         aria-label="minimum height"
-        placeholder="Minimum 3 rows"
+        placeholder="Your message"
         className='add__text-area'
         value={describe}
         onChange={hendlerTextArea}

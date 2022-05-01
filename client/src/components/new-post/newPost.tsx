@@ -16,7 +16,9 @@ export default function NewPost(): ReactElement {
     const [droppedFiles, setDroppedFiles] = useState([])
     const { setAlert } = useContext(Context)
     const post = useSelector((state: RootState) => state.AddPost)
+    const { city, street, address, price } = useSelector((state: RootState) => state.AddPost)
     const dispatch = useDispatch()
+    const disableButton = !!city && !!street && !!address && !!price
 
     const addPost = () => {
 
@@ -30,22 +32,15 @@ export default function NewPost(): ReactElement {
 
         formData.append("post", postJson)
 
-
-        dispatch({ type: "LOADER", payload: true })
-        api.post('/post/add-post', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        }
-        ).then(() => {
-            setDroppedFiles([])
-            setAlert(ALERT.SUCCESS)
-            dispatch({ type: 'AP_INETSTATE' })
-            dispatch({ type: "LOADER", payload: false })
-        })
+        api.post('/post/add-post', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+            .then(() => {
+                setDroppedFiles([])
+                setAlert(ALERT.SUCCESS)
+                dispatch({ type: 'AP_INIT' })
+            })
             .catch(function (error) {
                 console.log(error);
-                dispatch({ type: "LOADER", payload: false })
+
             });
     }
 
@@ -68,7 +63,7 @@ export default function NewPost(): ReactElement {
                 </Box>
                 <Textarea />
                 <Box className="add__button">
-                    <Button variant="contained" onClick={addPost}>ADDNEWPOST</Button>
+                    <Button variant="contained" onClick={addPost} disabled={!disableButton}>ADDNEWPOST</Button>
                 </Box>
             </Box>
         </div>

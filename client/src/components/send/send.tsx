@@ -1,11 +1,43 @@
-import * as React from 'react';
+import React, { useState, useContext } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import Button from '@mui/material/Button';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import { api } from '../../api/api'
+import Context from '../../context/context';
+import { ALERT } from '../../enum/enum';
+import FilePresentIcon from '@mui/icons-material/FilePresent';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function Send() {
+
+    const [message, setMessage] = useState('')
+    const { setAlert } = useContext(Context)
+    const [files, setFiles] = useState(null)
+
+    const send = () => {
+
+        let formData = new FormData()
+
+        formData.append("file", files[0])
+
+        if(files[0].size > 5000000){
+            return 
+        }
+
+        formData.append("message", message)
+
+        api.post('/mail/send', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+            .then(() => {
+                setAlert(ALERT.SUCCESS)
+                setMessage('')
+                setFiles(null)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 
     return (
         <Box component="div" className="send">
@@ -18,15 +50,30 @@ export default function Send() {
             </Typography>
             <TextareaAutosize
                 aria-label="minimum height"
-                placeholder="Minimum 3 rows"
+                placeholder="Your message"
                 className='add__text-area'
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
             />
             <Box component="div" sx={{ display: "flex", justifyContent: "space-between", marginTop: "10px" }}>
-                <Button>
-                    <AttachFileIcon />
-                    Attach File
-                </Button>
-                <Button variant="contained">Send</Button>
+                {
+                    files
+                        ? <Box className='send__file' color="#1976d2">
+                            <FilePresentIcon />
+                            {files[0].name.length > 15 ? `${files[0].name.substring(0,15)}...` : files[0].name}
+                            <Button variant="text" color="error" onClick={() => setFiles(null)}>
+                                <DeleteIcon />
+                            </Button>
+                        </Box>
+                        : <Button>
+                            <label htmlFor="myfile" className='send__attach'>
+                                <AttachFileIcon />
+                                Attach File
+                            </label>
+                        </Button>
+                }
+                <input type="file" id="myfile" name="myfile" onChange={e => setFiles(e.target.files)} />
+                <Button variant="contained" onClick={send}>Send</Button>
             </Box>
         </Box>
     );

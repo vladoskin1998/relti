@@ -30,7 +30,7 @@ export const AddPost = (state = initState, action: { type: string, payload: any 
         case "AP_DESCRIBE":
             state = { ...state, describe: action.payload }
             return state
-        case "AP_INETSTATE":
+        case "AP_INIT":
             state = {...initState}
             return state
         default:

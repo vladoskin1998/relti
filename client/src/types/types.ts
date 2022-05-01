@@ -34,3 +34,11 @@ export interface NavigationStateInterface{
     from?: Location
 }
 
+export type KeyNewPostType = "city" |  "street" | "address" |  "price"
+
+export interface VInputNewPostInterface{
+    city: boolean,
+    street: boolean,
+    address: boolean,
+    price: boolean
+}
