@@ -10,9 +10,11 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../store/store';
-import { OPTIONS, SELECT } from '../../../enum/enum';
-import { RentOrBuyType, SelectType } from '../../../types/types';
+import { OPTIONS, SELECT, CURRENCY } from '../../../enum/enum';
+import { RentOrBuyType, SelectType, CurrencyType } from '../../../types/types';
 import { useDelayInput } from '../../../hooks/useDelayInput';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 export function RenderCbLab() {
 
@@ -39,16 +41,23 @@ export function BasicTextFields() {
     const [minPrice, setMinPrice] = useDelayInput("F_CHANGE_MINPRICE")
     const [maxPrice, setMaxPrice] = useDelayInput("F_CHANGE_MAXPRICE")
 
+    const select: CurrencyType[] = [CURRENCY.UAH, CURRENCY.USD, CURRENCY.EUR]
+
+    const dispatch = useDispatch()
+
+    const { currency } = useSelector((state: RootState) => state.ChangeFilter)
+
+    const handlerInput = (e: SelectChangeEvent, t: string) => {
+        dispatch({ type: t, payload: e.target.value })
+    }
+
     return (
         <FormControl>
             <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
-            <Box component="form"
-                sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}
-                noValidate
-                autoComplete="off"
-            >
-                <TextField id="outlined-basic" label="min price" variant="outlined" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} />
-                <TextField id="outlined-basic" label="max price" variant="outlined" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
+            <Box component="form" className="filter__price">
+                <TextField type="number" id="outlined-basic" label="min price" variant="outlined" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} />
+                <TextField type="number" id="outlined-basic" label="max price" variant="outlined" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
+                <SelectChange currency={currency} handlerInput={e => handlerInput(e, "F_CHANGE_CURRENCY")} item={select} />
             </Box>
         </FormControl>
     );
@@ -77,12 +86,27 @@ export function RadioButtonsGroup() {
     );
 }
 
-
-
-
-
-
-
+export function SelectChange({
+    item,
+    currency,
+    handlerInput,
+}: {
+    item: CurrencyType[],
+    currency: CurrencyType,
+    handlerInput: (e: SelectChangeEvent, t: string) => void,
+}) {
+    return (
+        <Select value={currency}
+            onChange={(e) => handlerInput(e, "AP__CURRENCY")}
+            displayEmpty
+            defaultValue={CURRENCY.UAH}
+        >
+            {
+                item.map(it => <MenuItem value={it} key={it}>{it}</MenuItem>)
+            }
+        </Select>
+    )
+}
 
 
 

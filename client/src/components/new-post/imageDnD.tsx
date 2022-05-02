@@ -76,7 +76,7 @@ export const TargetBox = (props: any): ReactElement => {
         <div ref={drop} className="add__dndimg">
             {isActive ? <FileDownloadDoneIcon /> : <FileDownloadIcon />}
             <div>
-                Download File
+                Download File - jpeg, jpg, png
             </div>
         </div>
     )

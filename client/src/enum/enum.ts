@@ -25,3 +25,9 @@ export enum ALERT{
     SUCCESS='success',
     NONE='none'
 }
+
+export enum CURRENCY{
+    UAH="UAH",
+    EUR="EUR",
+    USD="USD",
+}

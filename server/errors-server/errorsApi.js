@@ -5,7 +5,7 @@ class ErrorsApi extends Error {
         this.status = status
     }
 
-    static badRequest(message, status) {
+    static badRequest(message, status = 400) {
         return new ErrorsApi(message, status)
     }
 

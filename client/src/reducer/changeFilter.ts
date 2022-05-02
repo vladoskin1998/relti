@@ -1,11 +1,12 @@
 import { FilterInterface } from '../types/types'
-import { OPTIONS, SELECT } from '../enum/enum'
+import { OPTIONS, SELECT, CURRENCY } from '../enum/enum'
 
 const initState: FilterInterface = {
     street: null,
     price: {toPrice:null, fromPrice:null},
     rentOrBuy: [OPTIONS.BUY, OPTIONS.RENT],
-    select: SELECT.END
+    select: SELECT.END,
+    currency: CURRENCY.UAH,
 }
 
 export const ChangeFilter = (state = initState, action: { type: string, payload: any }):FilterInterface => {
@@ -18,6 +19,9 @@ export const ChangeFilter = (state = initState, action: { type: string, payload:
             return state
         case "F_CHANGE_MAXPRICE": 
             state={...state, price: {...state.price, fromPrice: action.payload || null}}
+            return state
+        case "F_CHANGE_CURRENCY":
+            state={...state, currency: action.payload }
             return state
         case "F_CHANGE_RENTBUY":
             state={...state, 

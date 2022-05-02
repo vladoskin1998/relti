@@ -1,11 +1,12 @@
 import { PostItemInterface } from '../types/types'
-import { OPTIONS, SELECT } from '../enum/enum'
+import { OPTIONS, SELECT, CURRENCY } from '../enum/enum'
 
 const initState: PostItemInterface = {
     city: '',
     street: '',
     address: '',
     price: '',
+    currency: CURRENCY.UAH,
     rentOrBuy: OPTIONS.RENT,
     describe: '',
 }
@@ -23,6 +24,9 @@ export const AddPost = (state = initState, action: { type: string, payload: any 
             return state
         case "AP__PRICE":
             state = { ...state, price: action.payload }
+            return state
+        case "AP__CURRENCY":
+            state = { ...state, currency: action.payload }
             return state
         case "AP_RENTORBUY":
             state = { ...state, rentOrBuy: action.payload }

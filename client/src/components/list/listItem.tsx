@@ -15,7 +15,7 @@ import { ALERT } from '../../enum/enum';
 
 export default function ListItem({ post, getList }: { post: PostItemInterface, getList:()=>void }) {
 
-    const { city, street, address, price, _id } = post
+    const { city, street, address, price, _id, currency } = post
     const { setLoader, setAlert } = useContext(LoaderContext)
 
     const deletePost = (id: string) => {
@@ -42,14 +42,14 @@ export default function ListItem({ post, getList }: { post: PostItemInterface, g
                         {`${city}, ${street}, ${address}`}
                     </Typography>
                     <Typography gutterBottom variant="h4" component="div">
-                        {price}
+                        {`${price} ${currency}`}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         {post.describe}
                     </Typography>
                     {
                         ROLE.ADMIN === parseToken.payload?.role
-                            ? <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                            ? <Box sx={{ display: "flex", justifyContent: "flex-end", paddingTop: "10px" }}>
                                 <Button variant="outlined" color="error" onClick={() => deletePost(_id)}>
                                     DELETE
                                 </Button>

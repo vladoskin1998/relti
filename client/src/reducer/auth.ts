@@ -9,7 +9,6 @@ const initState: AuthInterface = {
 export const AuthReducer = (state = initState, action: { type: string, payload: any }): AuthInterface => {
     switch (action.type) {
         case "AUTH_UPDATE":
-        //    console.log("AUTH_UPDATE",action.payload)
             localStorage.setItem('accessToken', action.payload)
             state = { ...state, accessToken: action.payload }
             return state
@@ -20,3 +19,4 @@ export const AuthReducer = (state = initState, action: { type: string, payload: 
             return initState
     }
 }
+

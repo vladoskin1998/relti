@@ -1,11 +1,14 @@
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
-input[type=number] {
-  -moz-appearance: textfield;
+$color-background: #eaecfa;
+$color-main: #1976d2;
+
+input[type="number"] {
+    -moz-appearance: textfield;
 }
 
 body {
@@ -21,20 +24,20 @@ body {
     left: 0;
     width: 100%;
     z-index: 1001;
-    &__route{
+    &__route {
         display: flex;
         align-items: center;
         column-gap: 17px;
         padding-right: 5px;
-        &>div{
-             cursor: pointer;
-             color: #fff;
-             text-decoration: none;
-             display: inline-block;
-             position: relative;
+        & > div {
+            cursor: pointer;
+            color: #fff;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
         }
 
-        &>div:after {    
+        & > div:after {
             background: none repeat scroll 0 0 transparent;
             bottom: 0;
             content: "";
@@ -45,11 +48,11 @@ body {
             background: #fff;
             transition: width 0.3s ease 0s, left 0.3s ease 0s;
             width: 0;
-          }
-        &>div:hover:after { 
-            width: 100%; 
-            left: 0; 
-          }
+        }
+        & > div:hover:after {
+            width: 100%;
+            left: 0;
+        }
     }
 }
 
@@ -96,13 +99,21 @@ body {
     }
 }
 
+.filter {
+    &__price {
+        display: grid;
+        grid-template-columns: 150px 150px 80px;
+        column-gap: 10px;
+    }
+}
+
 .add {
     padding: 20px;
 
     &__text-area {
         min-height: 184px;
         border-radius: 4px;
-        border: 1px solid #1976d2;
+        border: 1px solid $color-main;
         resize: none;
         padding: 8px;
     }
@@ -112,7 +123,7 @@ body {
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        border: 1px solid #1976d2;
+        border: 1px solid $color-main;
         height: 200px;
         border-radius: 4px;
         row-gap: 5px;
@@ -123,10 +134,17 @@ body {
         justify-content: flex-end;
         align-items: flex-end;
     }
+    &__input {
+        &-price {
+            display: grid;
+            grid-template-columns: 5fr 1.5fr;
+            column-gap: 10px;
+            & > div:last-child {
+                min-width: 80px;
+            }
+        }
+    }
 }
-
-$color-background: #eaecfa;
-$color-loader: #1976d2;
 
 .loader__body {
     position: fixed;
@@ -150,7 +168,7 @@ $color-loader: #1976d2;
     font-family: helvetica, arial, sans-serif;
     text-transform: uppercase;
     font-weight: 900;
-    color: $color-loader;
+    color: $color-main;
     letter-spacing: 0.2em;
     z-index: 1003;
 
@@ -160,7 +178,7 @@ $color-loader: #1976d2;
         display: block;
         width: 15px;
         height: 15px;
-        background: $color-loader;
+        background: $color-main;
         position: absolute;
         animation: load 0.7s infinite alternate ease-in-out;
     }
@@ -211,34 +229,34 @@ $color-loader: #1976d2;
     }
 }
 
-.about{
+.about {
     display: flex;
     align-items: center;
     justify-content: center;
     column-gap: 30px;
-    img{
+    img {
         width: 250px;
         height: auto;
     }
 }
 
-.send{
+.send {
     margin: 0 auto;
     width: 50vw;
-    & .add__text-area{
+    & .add__text-area {
         width: 100%;
     }
-    &__attach{
+    &__attach {
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
     }
-    &__file{
+    &__file {
         display: flex;
         align-items: center;
         column-gap: 3px;
-        &>button{
+        & > button {
             margin-left: 10px;
             padding: 3px !important;
             min-width: 0 !important;
@@ -246,7 +264,7 @@ $color-loader: #1976d2;
     }
 }
 
-.alert{
+.alert {
     position: fixed;
     top: 30px;
     left: 50%;
@@ -254,6 +272,6 @@ $color-loader: #1976d2;
     z-index: 1003;
 }
 
-#myfile{
+#myfile {
     display: none;
 }

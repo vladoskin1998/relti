@@ -25,12 +25,11 @@ api.interceptors.response.use((config) => {
                 localStorage.setItem('accessToken', res.data.accessToken);
             })
             .catch(e => {
-                document.location.replace("http://localhost:3000/auth");
-                localStorage.removeItem('accessToken')
                 console.log(e)
             })
 
         return api.request(originalRequest);
     }
-
+    document.location.replace("http://localhost:3000/auth");
+    localStorage.removeItem('accessToken')
 })

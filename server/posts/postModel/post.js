@@ -9,11 +9,12 @@ const Post = new Schema(
         street: { type: String, required: true },
         address: { type: String, required: true },
         price: { type: Number, required: true },
+        currency: {type: String, enum:["UAH", "EUR", "USD"], default: "UAH" },
         rentOrBuy: {type: String, enum:["BUY", "RENT"], required: true, default: "RENT"},
         describe: String,
         images: [String],
         date: { type: Date, default: new Date() }
-        
+
     }, {
         versionKey: false 
     }

@@ -10,7 +10,7 @@ class AuthService {
         const checkUserDb = await User.findOne({ login })
 
         if (checkUserDb) {
-            throw ErrorsApi.badRequest("Already user create")
+            throw ErrorsApi.badRequest("Already user create", 400)
         }
 
         const hashPass = await bcrypt.hash(password, 5)
@@ -56,9 +56,9 @@ class AuthService {
         }
 
         const validRefToken = await AuthTokenService.validateRefreshToken(refreshToken)
-        
 
         if (!validRefToken) {
+            await AuthTokenService.deleteToken(refreshToken)
             throw ErrorsApi.unAuthorization()
         }
 

@@ -3,6 +3,7 @@ import Navigation from "./navbar/navigation.tsx";
 import List from './list/list.tsx';
 import '../style/style.scss'
 import NewPost from './new-post/newPost';
+import { useDispatch } from 'react-redux'
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Loader from '../ui/loader.tsx';
 import Auth from './auth/auth'
@@ -17,21 +18,25 @@ import AlertMessage from '../ui/message';
 function App() {
 
     const [loader, setLoader] = useState(false)
+
     const [alert, setAlert] = useState(ALERT.NONE)
-    
+
+    const dispatch = useDispatch()
+
     let location = useLocation();
 
     useEffect(() => {
-        axios.post('http://localhost:5000/api/auth/refresh', {}, {withCredentials: true,})
+        axios.post('http://localhost:5000/api/auth/refresh', {}, { withCredentials: true, })
             .then((response) => {
-                if(response?.data?.accessToken){
-                    localStorage.setItem('accessToken', response?.data?.accessToken)
+                if (response?.data?.accessToken) {
+                    dispatch({ type: "AUTH_UPDATE", payload: response?.data?.accessToken })
                 }
                 setLoader(false)
             })
             .catch(function (error) {
-                console.log(error);
+                dispatch({ type: "AUTH_DELETE" })
                 setLoader(false)
+                console.log("AUTH_DELETE",error);
             });
     }, [])
 
@@ -51,14 +56,14 @@ function App() {
 
                 }
                 {
-                    localStorage.getItem('accessToken') &&  ROLE.ADMIN === parseToken?.payload?.role 
+                    localStorage.getItem('accessToken') && ROLE.ADMIN === parseToken?.payload?.role
                         ? <Route path="/add-post" element={<NewPost />} />
                         : <Route path="*" element={<Navigate to="/auth" replace />} />
 
                 }
             </Routes>
             {loader && <Loader />}
-            <AlertMessage alert={alert}/>
+            <AlertMessage alert={alert} />
         </LoaderContext.Provider>
     );
 }

@@ -5,7 +5,7 @@ class PostService {
 
     async getPost(filter) {
 
-        const { number, street, price, rentOrBuy, select } = filter
+        const { number, street, price, rentOrBuy, select, currency } = filter
 
         let query = {
             street: street ? { $regex: street } : { $exists: true, $ne: null },
@@ -13,6 +13,9 @@ class PostService {
                 ? { $gte: price?.toPrice, $lte: price?.fromPrice }
                 : { $exists: true, $ne: null },
             rentOrBuy: { $in: rentOrBuy },
+            currency: price?.toPrice && price?.fromPrice
+                ? { $in: currency }
+                : { $exists: true, $ne: null },
         };
 
         const options = {
@@ -60,7 +63,7 @@ class PostService {
     }
 
     async deletePost(id) {
-       
+
         let { images } = await Post.findByIdAndRemove(id)
         images.map(image => fileService.deleteFile(image))
         return

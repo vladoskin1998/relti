@@ -8,8 +8,8 @@ class AuthTokenService {
     async generateToken(login, id, role) {
 
         try {
-            const refreshToken = jwt.sign({ login, id }, SECRET_REFRESH_KEY, { expiresIn: "40d" })
-            const accessToken = jwt.sign({ login, id, role }, SECRET_ACCESS_KEY, { expiresIn:  300 })
+            const refreshToken = jwt.sign({ login, id }, SECRET_REFRESH_KEY, { expiresIn: 400 })
+            const accessToken = jwt.sign({ login, id, role }, SECRET_ACCESS_KEY, { expiresIn:  100 })
             return { refreshToken, accessToken }
         } catch (error) {
             console.log(error.message)
@@ -20,19 +20,23 @@ class AuthTokenService {
     async saveToken(refreshToken, id) {
 
         const token = await Token.findOne({user:id})
+        
+        console.log(token)
 
         if (token) {
             await token.updateOne({ refreshToken })
             return
         }
-
+  
         const newToken = await new Token({ refreshToken, user: id })
         await newToken.save()
         return
     }
+    
 
     async validateRefreshToken(refreshToken) {
         try {
+         //   console.log("refreshToken--->", refreshToken)
             return jwt.verify(refreshToken, SECRET_REFRESH_KEY)
         } catch (error) {
             console.log(error.message)
@@ -41,6 +45,7 @@ class AuthTokenService {
 
     async validateAccessToken(accessToken) {
         try {
+           // console.log("accessToken--->>", accessToken)
             return jwt.verify(accessToken, SECRET_ACCESS_KEY)
         } catch (error) {
             console.log(error.message)
