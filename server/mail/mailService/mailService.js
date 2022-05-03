@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer'
+import { ADMIN_MAIL, ADMIN_MAIL_PASS } from '../../conf.js';
 
 class MailService {
 
@@ -11,8 +12,8 @@ class MailService {
                 port: 587,
                 secure: false, // true for 465, false for other ports
                 auth: {
-                    user: 'natalirelti@gmail.com', // generated ethereal user
-                    pass: 'Vlados1998', // generated ethereal password
+                    user: ADMIN_MAIL, // generated ethereal user
+                    pass: ADMIN_MAIL_PASS, // generated ethereal password
                 },
             });
             let info = await transporter.sendMail({

@@ -4,6 +4,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Box from '@mui/material/Box';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
+import { baseURL } from '../../config'
 
 export default function ListSlich({ images }: { images: string[] }): ReactElement {
 
@@ -17,8 +18,6 @@ export default function ListSlich({ images }: { images: string[] }): ReactElemen
         slidesToScroll: 1,
     };
 
-    // ${ window.location.href}
-
     return (
         <Slider {...settings}>
             {images.map((image, index) =>
@@ -26,7 +25,7 @@ export default function ListSlich({ images }: { images: string[] }): ReactElemen
                 <CardMedia
                     component="img"
                     height="400"
-                    image={`http://localhost:5000/images/${image}`}
+                    image={`${baseURL}/images/${image}`}
                     alt="Not found images"
                     className="list__item-img"
                 />

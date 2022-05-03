@@ -28,7 +28,7 @@ export function RenderCbLab() {
     return (
         <FormControl>
             <FormGroup>
-                <FormLabel id="checkbox">Gender</FormLabel>
+                <FormLabel id="checkbox">Rent or buy</FormLabel>
                 <FormControlLabel aria-labelledby="checkbox" control={<Checkbox checked={rentOrBuy.includes(OPTIONS.RENT)} onChange={() => changeRentBuy(OPTIONS.RENT)} />} label="Rent" />
                 <FormControlLabel aria-labelledby="checkbox" control={<Checkbox checked={rentOrBuy.includes(OPTIONS.BUY)} onChange={() => changeRentBuy(OPTIONS.BUY)} />} label="Buy" />
             </FormGroup>
@@ -53,7 +53,7 @@ export function BasicTextFields() {
 
     return (
         <FormControl>
-            <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
+            <FormLabel id="demo-radio-buttons-group-label">Price</FormLabel>
             <Box component="form" className="filter__price">
                 <TextField type="number" id="outlined-basic" label="min price" variant="outlined" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} />
                 <TextField type="number" id="outlined-basic" label="max price" variant="outlined" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
@@ -75,7 +75,7 @@ export function RadioButtonsGroup() {
 
     return (
         <FormControl>
-            <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
+            <FormLabel id="demo-radio-buttons-group-label">Sort</FormLabel>
             <RadioGroup aria-labelledby="demo-radio-buttons-group-label" name="radio-buttons-group">
                 <FormControlLabel control={<Radio checked={select === SELECT.END} onChange={() => changeSelect(SELECT.END)} />} label="ENDDate" />
                 <FormControlLabel control={<Radio checked={select === SELECT.START} onChange={() => changeSelect(SELECT.START)} />} label="STARTDate" />

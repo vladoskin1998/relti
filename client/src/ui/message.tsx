@@ -5,7 +5,7 @@ import { AlertType } from '../types/types';
 import Context from '../context/context';
 import { ALERT } from '../enum/enum';
 
-export default function AlertMessage({ alert }: { alert: AlertType }): ReactElement {
+export default function AlertMessage({ alert }: { alert: { status: AlertType, message: string } }): ReactElement {
 
     const { setAlert } = useContext(Context)
 
@@ -18,19 +18,19 @@ export default function AlertMessage({ alert }: { alert: AlertType }): ReactElem
     }, [])
 
     const message = () => {
-        switch (alert) {
+        switch (alert.status) {
             case ALERT.ERROR:
                 return (
                     <Alert severity="error">
                         <AlertTitle>DELETE</AlertTitle>
-                        This is an error alert — <strong>check it out!</strong>
+                        {alert.message} — <strong>check it out!</strong>
                     </Alert>
                 )
             case ALERT.SUCCESS:
                 return (
                     <Alert severity="success">
                         <AlertTitle>Success</AlertTitle>
-                        This is a success alert — <strong>check it out!</strong>
+                        {alert.message} — <strong>check it out!</strong>
                     </Alert>
                 )
             default:

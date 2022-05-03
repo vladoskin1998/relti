@@ -1,7 +1,6 @@
 import express from 'express'
 import { PORT, URL_DB } from './conf.js'
 import mongoose from 'mongoose'
-import authRouter from './auth/authRouter/authRouter.js'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import router from './router.js'
@@ -16,6 +15,7 @@ const __dirname = path.resolve()
 
 app.use(express.json())
 app.use(fileUpload({}))
+app.use('/client/', express.static(path.resolve(__dirname + '/client/build')))
 app.use('/images', express.static(__dirname + '/images'));
 app.use(cookieParser())
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))

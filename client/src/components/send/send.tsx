@@ -20,17 +20,23 @@ export default function Send() {
 
         let formData = new FormData()
 
-        formData.append("file", files[0])
-
-        if(files[0].size > 5000000){
-            return 
+        if(files){
+            if(files[0].size > 5000000){
+                setAlert({status: ALERT.ERROR, message: "fail have contain less 5Mb" })
+                setFiles(null)
+                return
+            }
+            formData.append("file", files[0])
         }
+
+       
 
         formData.append("message", message)
 
         api.post('/mail/send', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
             .then(() => {
-                setAlert(ALERT.SUCCESS)
+            //    {status:ALERT.NONE, message: ""}
+                setAlert({status: ALERT.SUCCESS, message: "send mail success" })
                 setMessage('')
                 setFiles(null)
             })

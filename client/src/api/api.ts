@@ -1,12 +1,13 @@
 import axios from 'axios'
+import { baseURL } from '../config'
 
 export const apiAuth = axios.create({
     withCredentials: true,
-    baseURL: 'http://localhost:5000/api/auth',
+    baseURL: `${baseURL}/api/auth`,
 });
 
 export const api = axios.create({
-    baseURL: 'http://localhost:5000/api',
+    baseURL: `${baseURL}/api`,
 })
 
 api.interceptors.request.use((config) => {
@@ -20,7 +21,7 @@ api.interceptors.response.use((config) => {
     const originalRequest = error.config;
     if (error.response.status == 401 && error.config && !error.config._isRetry) {
         originalRequest._isRetry = true;
-        await axios.post('http://localhost:5000/api/auth/refresh', {}, {withCredentials: true,})
+        await axios.post(`${baseURL}/api/auth/refresh`, {}, { withCredentials: true, })
             .then((res) => {
                 localStorage.setItem('accessToken', res.data.accessToken);
             })

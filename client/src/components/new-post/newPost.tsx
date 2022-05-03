@@ -35,12 +35,11 @@ export default function NewPost(): ReactElement {
         api.post('/post/add-post', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
             .then(() => {
                 setDroppedFiles([])
-                setAlert(ALERT.SUCCESS)
+                setAlert({status: ALERT.SUCCESS, message: "post successful add"})
                 dispatch({ type: 'AP_INIT' })
             })
             .catch(function (error) {
                 console.log(error);
-
             });
     }
 

@@ -19,7 +19,7 @@ function App() {
 
     const [loader, setLoader] = useState(false)
 
-    const [alert, setAlert] = useState(ALERT.NONE)
+    const [alert, setAlert] = useState({status:ALERT.NONE, message: ""})
 
     const dispatch = useDispatch()
 

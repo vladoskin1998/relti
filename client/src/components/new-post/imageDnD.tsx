@@ -4,45 +4,52 @@ import { DndProvider, useDrop } from 'react-dnd'
 import { NativeTypes } from 'react-dnd-html5-backend'
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import FileDownloadDoneIcon from '@mui/icons-material/FileDownloadDone';
-import SimCardDownloadIcon from '@mui/icons-material/SimCardDownload';
+import FilePresentIcon from '@mui/icons-material/FilePresent';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
-export default function ImageDND({droppedFiles, setDroppedFiles }: {droppedFiles:any, setDroppedFiles: (f:any) => void }): ReactElement {
+export default function ImageDND({ droppedFiles, setDroppedFiles }: { droppedFiles: any, setDroppedFiles: (f: any) => void }): ReactElement {
 
     const handleFileDrop = useCallback(
         (item: any) => {
-
             if (item) {
                 const files = item.files
-            
                 setDroppedFiles(files)
             }
         },
         [setDroppedFiles],
     )
 
+    const deleteFile = (name:string) => {
+        setDroppedFiles(
+            droppedFiles.filter((file:any) => file.name !== name)
+        )
+    }
+
+    const fileList = useMemo(() => {
+        return droppedFiles.map((file: any) => <Box className='send__file' color="#1976d2" key={file.name}>
+            <FilePresentIcon />
+            {file.name.length > 15 ? `${file.name.substring(0, 20)}...` : file.name}
+            <Button variant="text" color="error">
+                <DeleteIcon onClick={() => deleteFile(file.name)}/>
+            </Button>
+        </Box>
+        )
+    }, [droppedFiles])
+
+
     return (<DndProvider backend={HTML5Backend}>
         <TargetBox onDrop={handleFileDrop} />
-        <FileList files={droppedFiles} />
+        {
+            droppedFiles.length
+            ?  <Box sx={{paddingTop:"15px"}}>{fileList}</Box>
+            : <></>
+        }
     </DndProvider>
     )
 
 }
-
-export const FileList = ({ files }: { files: any }): ReactElement => {
-
-    const fileList = useMemo(() => {
-        const label = (file: any) =>
-            `'${file.name}' of size '${file.size}' and type '${file.type}'`
-        return files.map((file: any) => <div key={file.name}><SimCardDownloadIcon />{label(file)}</div>)
-    }, [files])
-
-    if (files.length === 0) {
-        return <></>
-    }
-
-    return <div>{fileList}</div>
-}
-
 
 export const TargetBox = (props: any): ReactElement => {
     const { onDrop } = props
@@ -54,15 +61,7 @@ export const TargetBox = (props: any): ReactElement => {
                     onDrop(item)
                 }
             },
-            canDrop(item: any) {
-                //    console.log('canDrop', item.files, item.items)
-                return true
-            },
             collect: (monitor: any) => {
-                const item = monitor.getItem()
-                if (item) {
-                    //    console.log('collect', item.files, item.items)
-                }
                 return {
                     isOver: monitor.isOver(),
                     canDrop: monitor.canDrop(),

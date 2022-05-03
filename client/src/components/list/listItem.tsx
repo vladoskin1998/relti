@@ -24,7 +24,7 @@ export default function ListItem({ post, getList }: { post: PostItemInterface, g
         api.post('/post/delete-post', { id: id })
             .then(() => {
                 setLoader(false)
-                setAlert(ALERT.ERROR)
+                setAlert({status: ALERT.SUCCESS, message: "post successful delete" })
                 getList()
             })
             .catch((error) => {
