@@ -17,7 +17,7 @@ class MailService {
                 },
             });
             let info = await transporter.sendMail({
-                from: '"Natali Relti" <natalirelti@gmail.com>', // sender address
+                from: `"Natali Relti" <${ADMIN_MAIL}>`, // sender address
                 to: "vladosik4891@gmail.com", // list of receivers
                 subject: "client", // Subject line
                 text: message, // plain text body

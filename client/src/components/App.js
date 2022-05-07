@@ -14,6 +14,7 @@ import { ROLE, ALERT } from '../enum/enum';
 import { parseToken } from '../actions/parseToken';
 import axios from 'axios';
 import AlertMessage from '../ui/message';
+import { baseURL } from '../config'
 
 function App() {
 
@@ -26,7 +27,7 @@ function App() {
     let location = useLocation();
 
     useEffect(() => {
-        axios.post('http://localhost:5000/api/auth/refresh', {}, { withCredentials: true, })
+        axios.post(`${baseURL}/api/auth/refresh`, {}, { withCredentials: true, })
             .then((response) => {
                 if (response?.data?.accessToken) {
                     dispatch({ type: "AUTH_UPDATE", payload: response?.data?.accessToken })

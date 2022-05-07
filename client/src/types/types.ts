@@ -1,9 +1,10 @@
-import {OPTIONS, SELECT, ROLE, AUTH, ALERT, CURRENCY} from '../enum/enum'
+import {OPTIONS, SELECT, ROLE, AUTH, ALERT, CURRENCY, ERRORAUTH} from '../enum/enum'
 
 export type RoleType = ROLE.ADMIN | ROLE.USER 
 export type RentOrBuyType = OPTIONS.BUY | OPTIONS.RENT
 export type AlertType = ALERT.ERROR | ALERT.SUCCESS | ALERT.NONE
 export type CurrencyType = CURRENCY.EUR | CURRENCY.USD | CURRENCY.UAH 
+export type ErrorAuthType = ERRORAUTH.LOGIN | ERRORAUTH.PASSWORD
 
 export interface PostItemInterface{
     _id?: string,
@@ -29,11 +30,16 @@ export interface FilterInterface{
 }
 
 
-export type authType = AUTH.SINGIN | AUTH.SINGUP
+export type authType = AUTH.REGISTRATION | AUTH.LOGIN
 
 export interface NavigationStateInterface{
     auth: authType,
     from?: Location
+}
+
+export interface AuthResponseInterface{
+    accessToken?: string,
+    message?: string,
 }
 
 export type KeyNewPostType = "city" |  "street" | "address" |  "price"

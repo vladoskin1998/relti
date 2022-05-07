@@ -19,17 +19,17 @@ export default function RenderMenuUser({
 
 
     const singIn = () => {
-        navigation('/auth', { state: { auth: AUTH.SINGIN } })
+        navigation('/auth', { state: { auth: AUTH.LOGIN } })
         handleMenuClose()
     }
 
     const singUp = () => {
-        navigation('/auth', { state: { auth: AUTH.SINGUP } })
+        navigation('/auth', { state: { auth: AUTH.REGISTRATION } })
         handleMenuClose()
     }
 
     const exit = () => {
-        navigation('/', { state: { auth: AUTH.SINGIN } })
+        navigation('/', { state: { auth: AUTH.LOGIN } })
         dispatch({ type: "AUTH_DELETE" })
         apiAuth.post('/logout')
             .then(res => console.log(res.data))

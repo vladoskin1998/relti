@@ -31,6 +31,6 @@ api.interceptors.response.use((config) => {
 
         return api.request(originalRequest);
     }
-    document.location.replace("http://localhost:3000/auth");
+    document.location.replace(`${baseURL}/auth`);
     localStorage.removeItem('accessToken')
 })

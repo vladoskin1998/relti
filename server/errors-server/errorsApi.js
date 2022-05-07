@@ -10,7 +10,7 @@ class ErrorsApi extends Error {
     }
 
     static unAuthorization() {
-        return new ErrorsApi("Not authoriation", 401)
+        return new ErrorsApi("Not authorization", 401)
     }
 }
 

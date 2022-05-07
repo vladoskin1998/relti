@@ -30,13 +30,13 @@ class AuthService {
         const user = await User.findOne({ login })
 
         if (!user) {
-            throw ErrorsApi.badRequest("Not the correct login")
+            throw ErrorsApi.badRequest("ERROR_LOG", 400)
         }
 
         const checkPass = await bcrypt.compare(password, user.password)
 
         if (!checkPass) {
-            throw ErrorsApi.badRequest("Not the correct password")
+            throw ErrorsApi.badRequest("ERROR_PASS", 400)
         }
 
         const genTokens = await AuthTokenService.generateToken(login, user._id, user.roles)

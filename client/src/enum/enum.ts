@@ -16,8 +16,8 @@ export enum SELECT {
 }   
 
 export enum AUTH{
-    SINGIN='singin',
-    SINGUP='singup'
+    LOGIN='login',
+    REGISTRATION='registration'
 }
 
 export enum ALERT{
@@ -30,4 +30,9 @@ export enum CURRENCY{
     UAH="UAH",
     EUR="EUR",
     USD="USD",
+}
+
+export enum ERRORAUTH{
+    LOGIN="ERROR_LOG",
+    PASSWORD="ERROR_PASS"
 }
