@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -7,12 +7,13 @@ import Stack from '@mui/material/Stack';
 import { apiAuth, api } from '../../api/api'
 import { useDispatch } from 'react-redux'
 import { useLocation, useNavigate } from "react-router-dom";
-import { AUTH, ERRORAUTH } from '../../enum/enum'
+import { AUTH, ERRORAUTH, ALERT } from '../../enum/enum'
 import { AxiosResponse } from 'axios'
 import { NavigationStateInterface, AuthResponseInterface, ErrorAuthType, AuthType } from '../../types/types'
 import { validate } from 'email-validator';
 import { validPassword } from '../../actions/validatorPassword';
 import InputPassword from './inputPassword';
+import Context from '../../context/context';
 
 export default function Auth() {
 
@@ -32,6 +33,8 @@ export default function Auth() {
         login: false,
         password: false
     })
+
+    const { setAlert } = useContext(Context)
 
     useEffect(() => {
         setLogin('')
@@ -77,6 +80,7 @@ export default function Auth() {
             .then((res: AxiosResponse<AuthResponseInterface>) => {
                 navigate(state?.from?.pathname || '/')
                 dispatch({ type: "AUTH_UPDATE", payload: res.data?.accessToken })
+                setAlert({status: ALERT.SUCCESS, message: "You login as user"})
             })
             .catch(e => console.log("error", e?.message))
     }
@@ -88,6 +92,7 @@ export default function Auth() {
             .then((res: AxiosResponse<AuthResponseInterface>) => {
                 navigate(state?.from?.pathname || '/')
                 dispatch({ type: "AUTH_UPDATE", payload: res.data?.accessToken })
+                setAlert({status: ALERT.SUCCESS, message:"You login as user"})
             })
             .catch(e => {
                 checkForm(e?.response?.data?.message)
@@ -95,7 +100,6 @@ export default function Auth() {
     }
 
     const changePassword = () => {
-
 
         //////////////new function
         let validateEmail = !validate(login)

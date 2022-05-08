@@ -1,10 +1,12 @@
-import * as React from 'react';
+import React, {useContext} from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import Modal from '../../ui/modal';
 import { useNavigate } from "react-router-dom";
 import { AUTH } from '../../enum/enum'
 import { apiAuth } from '../../api/api'
 import { useDispatch } from 'react-redux';
+import Context from '../../context/context';
+import { ALERT } from '../../enum/enum'
 
 export default function RenderMenuUser({
     anchorEl,
@@ -17,6 +19,7 @@ export default function RenderMenuUser({
     const navigation = useNavigate()
     const dispatch = useDispatch()
 
+    const { setAlert } = useContext(Context)
 
     const singIn = () => {
         navigation('/auth', { state: { auth: AUTH.LOGIN } })
@@ -32,8 +35,8 @@ export default function RenderMenuUser({
         navigation('/', { state: { auth: AUTH.LOGIN } })
         dispatch({ type: "AUTH_DELETE" })
         apiAuth.post('/logout')
-            .then(res => console.log(res.data))
-            .catch(e => console.log(e))
+            .then(res => console.log())
+            .catch(e => setAlert({status: ALERT.SUCCESS, message: "You exit in profile"}))
 
         handleMenuClose()
     }
