@@ -1,6 +1,6 @@
 import ErrorsApi from '../errors-server/errorsApi.js'
 
-export default function ErrorsMidlleware(err, req, res, next) {
+export default function ErrorsMiddleware(err, req, res, next) {
 
     if (err instanceof ErrorsApi) {
         if(err.status = 401){

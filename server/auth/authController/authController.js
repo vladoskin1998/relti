@@ -1,5 +1,6 @@
 import authService from '../authService/authService.js'
 import ErrorsApi from '../../errors-server/errorsApi.js'
+import url from 'url'
 
 class AuthController {
 
@@ -23,6 +24,14 @@ class AuthController {
             next(error)
         }
 
+
+    }
+
+    async changePassword(req, res, next) {
+
+        const query = url.parse(req.url, true).query;
+        await authService.changePassword(query)
+        return res.json("Send email")
 
     }
 

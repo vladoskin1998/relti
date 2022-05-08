@@ -16,8 +16,9 @@ export enum SELECT {
 }   
 
 export enum AUTH{
-    LOGIN='login',
-    REGISTRATION='registration'
+    LOGIN='Login',
+    REGISTRATION='Registration',
+    CHANGE_PASSWORD='Change password',
 }
 
 export enum ALERT{

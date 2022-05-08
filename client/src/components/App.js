@@ -10,7 +10,7 @@ import Auth from './auth/auth'
 import LoaderContext from '../context/context';
 import About from './about/about';
 import Send from './send/send';
-import { ROLE, ALERT } from '../enum/enum';
+import { ROLE, ALERT, AUTH } from '../enum/enum';
 import { parseToken } from '../actions/parseToken';
 import axios from 'axios';
 import AlertMessage from '../ui/message';
@@ -53,13 +53,13 @@ function App() {
                 {
                     localStorage.getItem('accessToken')
                         ? <Route path="/send" element={<Send />} />
-                        : <Route path="*" element={<Navigate to="/auth" state={{ from: location }} replace />} />
+                        : <Route path="*" element={<Navigate to="/auth" state={{ from: location, auth: AUTH.LOGIN }} replace />} />
 
                 }
                 {
                     localStorage.getItem('accessToken') && ROLE.ADMIN === parseToken?.payload?.role
                         ? <Route path="/add-post" element={<NewPost />} />
-                        : <Route path="*" element={<Navigate to="/auth" replace />} />
+                        : <Route path="*" element={<Navigate to="/auth" state={{ auth: AUTH.LOGIN }} replace />} />
 
                 }
             </Routes>

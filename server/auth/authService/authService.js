@@ -1,10 +1,11 @@
-import User from '../authModels/user.js'
+import User from '../../model-user/user.js'
 import bcrypt from 'bcrypt'
 import AuthTokenService from './authTokenService.js'
 import Token from '../authModels/token.js'
 import ErrorsApi from '../../errors-server/errorsApi.js'
 
 class AuthService {
+
     async registration({ login, password }) {
 
         const checkUserDb = await User.findOne({ login })
@@ -25,6 +26,7 @@ class AuthService {
         return { ...genTokens, login, id: user._id }
 
     }
+
     async login({ login, password }) {
 
         const user = await User.findOne({ login })
@@ -45,6 +47,13 @@ class AuthService {
 
         return { ...genTokens, login, id: user._id }
 
+    }
+
+    async changePassword({login, password}){
+
+        await User.findOneAndUpdate({ login }, {password})
+        return
+        
     }
 
     async refresh(refreshToken) {

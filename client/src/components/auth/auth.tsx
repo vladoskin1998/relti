@@ -1,30 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { apiAuth } from '../../api/api'
+import { apiAuth, api } from '../../api/api'
 import { useDispatch } from 'react-redux'
 import { useLocation, useNavigate } from "react-router-dom";
 import { AUTH, ERRORAUTH } from '../../enum/enum'
 import { AxiosResponse } from 'axios'
-import { NavigationStateInterface, AuthResponseInterface, ErrorAuthType } from '../../types/types'
+import { NavigationStateInterface, AuthResponseInterface, ErrorAuthType, AuthType } from '../../types/types'
 import { validate } from 'email-validator';
-import {validPassword} from '../../actions/validatorPassword';
+import { validPassword } from '../../actions/validatorPassword';
+import InputPassword from './inputPassword';
 
 export default function Auth() {
 
     const dispatch = useDispatch()
 
     const location = useLocation()
+    const navigation = useNavigate()
 
     const state = location.state as NavigationStateInterface;
 
@@ -32,7 +27,7 @@ export default function Auth() {
 
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
-    const [showPas, setShowPass] = useState(false)
+    const [newPassword, setNewPassword] = useState('')
     const [validInput, setValidInput] = useState({
         login: false,
         password: false
@@ -42,9 +37,10 @@ export default function Auth() {
         setLogin('')
         setPassword('')
         setValidInput({ login: false, password: false })
+        setNewPassword('')
     }, [state])
 
-     console.log(validInput)
+    console.log(validInput)
 
     const checkForm = (message: ErrorAuthType) => {
         console.log(message)
@@ -62,7 +58,7 @@ export default function Auth() {
     }
 
     const registrationProfile = () => {
-
+ //////////////new function
         let validateEmail = !validate(login)
         let validatePassword = !validPassword(password)
 
@@ -71,7 +67,7 @@ export default function Auth() {
             password: validatePassword
         })
 
-        if(validateEmail || validatePassword){
+        if (validateEmail || validatePassword) {
             return
         }
 
@@ -84,7 +80,6 @@ export default function Auth() {
             })
             .catch(e => console.log("error", e?.message))
     }
-
 
     const loginProfile = () => {
         apiAuth.post('/login', {
@@ -99,14 +94,54 @@ export default function Auth() {
             })
     }
 
+    const changePassword = () => {
+
+
+        //////////////new function
+        let validateEmail = !validate(login)
+        let validatePassword = !(validPassword(password) || password === newPassword)
+
+        setValidInput({
+            login: validateEmail,
+            password: validatePassword
+        })
+
+        if (validateEmail || validatePassword) {
+            return
+        }
+
+
+        api.post('mail/change-password', {
+            login, password
+        })
+            .then(() => {
+                console.log("SEND CHANGE PASSWORD")
+            })
+            .catch(e => {
+               
+            })
+    }
+
+    const caseHandler = (a: AuthType) => {
+        switch (a) {
+            case AUTH.LOGIN:
+                loginProfile()
+                break;
+            case AUTH.REGISTRATION:
+                registrationProfile()
+                break;
+            case AUTH.CHANGE_PASSWORD:
+                changePassword()
+                break;
+            default:
+                console.log("error")
+                break;
+        }
+    }
+
     return <Box component="div" className="auth">
         <Typography variant="h4" component="div" gutterBottom>
-            {
-                state?.auth === AUTH.REGISTRATION
-                    ? "Registration"
-                    : "Login"
-
-            }
+            {state?.auth}
         </Typography>
         <Box className="auth__input">
             <TextField id="outlined-basic"
@@ -114,48 +149,39 @@ export default function Auth() {
                 variant="outlined"
                 value={login}
                 onChange={e => setLogin(e.target.value)}
-                error={validInput.login} 
+                error={validInput.login}
                 placeholder="mail@mail.com"
             />
-            <FormControl sx={{ width: '300' }} variant="outlined" error={validInput.password}>
-                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-                <OutlinedInput
-                    id="outlined-adornment-password"
-                    type={showPas ? 'text' : 'password'}
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    placeholder="qwerty123"
-                    endAdornment={
-                        <InputAdornment position="end">
-                            <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={() => setShowPass(s => !s)}
-                                edge="end"
-                            >
-                                {showPas ? <VisibilityOff /> : <Visibility />}
-                            </IconButton>
-                        </InputAdornment>
-                    }
-                    label="Password"
-                    error={validInput.password}
-                />
-            </FormControl>
+            <InputPassword
+                password={password}
+                setPassword={setPassword}
+                valid={validInput.password}
+                label={state?.auth === AUTH.CHANGE_PASSWORD ? "New password" : "Password"}
+            />
+            {
+                state?.auth === AUTH.CHANGE_PASSWORD
+                    ? <InputPassword
+                        password={newPassword}
+                        setPassword={setNewPassword}
+                        valid={validInput.password}
+                        label={"Repeat password"}
+                    />
+                    : <></>
+            }
         </Box>
         <Stack className='auth__button' spacing={2}>
             <Button variant="contained"
-                onClick={
-                    state?.auth === AUTH.REGISTRATION
-                        ? registrationProfile
-                        : loginProfile
-                }
+                onClick={() => caseHandler(state?.auth)}
             >
-                {
-                    state?.auth === AUTH.REGISTRATION
-                        ? "Registration"
-                        : "Login"
-                }
+                {state?.auth}
             </Button>
-            <Button>Forgot password</Button>
+            {
+                state?.auth === AUTH.LOGIN
+                    ? <Button onClick={() => navigation('/auth', { state: { auth: AUTH.CHANGE_PASSWORD } })}>
+                        Forgot password
+                    </Button>
+                    : <></>
+            }
         </Stack>
     </Box>
 }

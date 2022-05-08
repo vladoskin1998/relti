@@ -1,5 +1,5 @@
 import authTokenService from '../authService/authTokenService.js'
-import User from '../authModels/user.js'
+import User from '../../model-user/user.js'
 import ErrorsApi from '../../errors-server/errorsApi.js'
 
 export default function authUserRole(roles) {

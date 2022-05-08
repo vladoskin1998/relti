@@ -30,10 +30,10 @@ export interface FilterInterface{
 }
 
 
-export type authType = AUTH.REGISTRATION | AUTH.LOGIN
+export type AuthType = AUTH.REGISTRATION | AUTH.LOGIN | AUTH.CHANGE_PASSWORD
 
 export interface NavigationStateInterface{
-    auth: authType,
+    auth: AuthType,
     from?: Location
 }
 

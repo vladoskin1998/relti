@@ -4,14 +4,17 @@ import mongoose from 'mongoose'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import router from './router.js'
-import ErrorsMidlleware from './midlleware-server/errorsMidlleware.js';
+import ErrorsMiddleware from './midlleware-server/errorsMidlleware.js';
 import path from 'path'
 import fileUpload from 'express-fileupload'
+import domain from 'domain'
 
 const app = express()
 const __dirname = path.resolve()
 
-console.log(process.env)
+
+
+// console.log(process.env)
 
 ////////////////////////////////domen servera cors!
 
@@ -26,7 +29,7 @@ app.use('/images', express.static(__dirname + '/images'));
 app.use(cookieParser())
 app.use(cors({ credentials: true, origin: "http://localhost:3000" }))
 app.use('/api', router)
-app.use(ErrorsMidlleware);
+app.use(ErrorsMiddleware);
 
 async function main() {
     const DB = await mongoose.connect(URL_DB, { useUnifiedTopology: true, useNewUrlParser: true })

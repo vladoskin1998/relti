@@ -1,9 +1,12 @@
 import nodemailer from 'nodemailer'
 import { ADMIN_MAIL, ADMIN_MAIL_PASS } from '../../conf.js';
+import User from '../../model-user/user.js'
+import ErrorsApi from '../../errors-server/errorsApi.js'
+import bcrypt from 'bcrypt'
 
 class MailService {
 
-    async send({message}, file) {
+    async send(link, { message }, file) {
 
         try {
 
@@ -16,19 +19,50 @@ class MailService {
                     pass: ADMIN_MAIL_PASS, // generated ethereal password
                 },
             });
-            let info = await transporter.sendMail({
+
+            let mail = {
                 from: `"Natali Relti" <${ADMIN_MAIL}>`, // sender address
-                to: "vladosik4891@gmail.com", // list of receivers
+                to: link, // list of receivers
                 subject: "client", // Subject line
                 text: message, // plain text body
-                attachments: {filename:"file", content: file.file.data},
-            });
+            }
+
+            if (file) {
+                mail.attachments = { filename: "file", content: file.file.data }
+            }
+
+            let info = await transporter.sendMail(mail);
             console.log("Message sent: %s", info.messageId);
             console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-            return 
+            return
         } catch (error) {
             console.log(error)
         }
+    }
+
+    async sendChangePassword({ login, password }) {
+
+        try {
+            const user = await User.findOne({ login })
+
+            if (!user) {
+                throw ErrorsApi.badRequest("ERROR_LOG", 400)
+            }
+    
+            const newPassword = bcrypt.hashSync(password, 4)
+    
+            console.log(`Send for change password ${process.env.SERVER_ADDRESS_NAME}api/auth/change-password?login=${login}&password=${newPassword}`)
+    
+            await this.send(
+                process.env.WORK_MAIL,
+                {
+                    message: `Send for change password ${process.env.SERVER_ADDRESS_NAME}api/auth/change-password?login=${login}&password=${newPassword}`
+                }
+            )
+        } catch (error) {
+            console.log(error);
+        }
+       
     }
 }
 
