@@ -34,14 +34,14 @@ export default function ListItem({ post, getList }: { post: PostItemInterface, g
     }
 
     return (
-        <Card sx={{ width: 785 }}>
+        <Card className='list-card'>
             <CardActionArea>
                 <ListSlick images={post?.images || []} />
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography gutterBottom variant="h6" component="div">
                         {`${city}, ${street}, ${address}`}
                     </Typography>
-                    <Typography gutterBottom variant="h4" component="div">
+                    <Typography gutterBottom variant="h5" component="div">
                         {`${price} ${currency}`}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">

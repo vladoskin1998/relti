@@ -27,14 +27,16 @@ export default function About() {
                     instagram: _instagram
                 </Typography>
                 <Typography variant="subtitle1" gutterBottom component="div">
-                    subtitle1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-                    blanditiis tenetur
+                text text text text text text textvvv textvvvv text textv text
+                text textv text
                 </Typography>
                 <Typography variant="body1" gutterBottom>
-                    body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-                    blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur,
-                    neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum
-                    quasi quidem quibusdam.
+                    text text text text text text text text text text text
+                    text textv text text text text text text text text
+                    text text textv text text text text textv
+                    text textvvvv text text text textv text
+                    textv textv text text
+                    textv text text text text
                 </Typography>
             </Box>
         </div>

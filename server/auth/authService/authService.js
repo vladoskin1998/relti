@@ -51,7 +51,7 @@ class AuthService {
 
     async changePassword({login, password}){
 
-        await User.findOneAndUpdate({ login }, {password})
+        await User.findOneAndUpdate({ login }, {password, linkChangePAssword: ""})
         return
         
     }

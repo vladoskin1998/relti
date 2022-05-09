@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import Context from '../../context/context';
 import { ALERT } from '../../enum/enum'
 
-export default function RenderMenuUser({
+export default function MenuUser({
     anchorEl,
     handleMenuClose,
 }: {

@@ -43,8 +43,6 @@ export default function Auth() {
         setNewPassword('')
     }, [state])
 
-    console.log(validInput)
-
     const checkForm = (message: ErrorAuthType) => {
         console.log(message)
         switch (message) {
@@ -61,7 +59,7 @@ export default function Auth() {
     }
 
     const registrationProfile = () => {
- //////////////new function
+
         let validateEmail = !validate(login)
         let validatePassword = !validPassword(password)
 
@@ -70,9 +68,8 @@ export default function Auth() {
             password: validatePassword
         })
 
-        if (validateEmail || validatePassword) {
-            return
-        }
+        if (validateEmail || validatePassword) return
+
 
         apiAuth.post('/registration', {
             login, password
@@ -80,7 +77,7 @@ export default function Auth() {
             .then((res: AxiosResponse<AuthResponseInterface>) => {
                 navigate(state?.from?.pathname || '/')
                 dispatch({ type: "AUTH_UPDATE", payload: res.data?.accessToken })
-                setAlert({status: ALERT.SUCCESS, message: "You login as user"})
+                setAlert({ status: ALERT.SUCCESS, message: "You login as user" })
             })
             .catch(e => console.log("error", e?.message))
     }
@@ -92,7 +89,7 @@ export default function Auth() {
             .then((res: AxiosResponse<AuthResponseInterface>) => {
                 navigate(state?.from?.pathname || '/')
                 dispatch({ type: "AUTH_UPDATE", payload: res.data?.accessToken })
-                setAlert({status: ALERT.SUCCESS, message:"You login as user"})
+                setAlert({ status: ALERT.SUCCESS, message: "You login as user" })
             })
             .catch(e => {
                 checkForm(e?.response?.data?.message)
@@ -101,7 +98,6 @@ export default function Auth() {
 
     const changePassword = () => {
 
-        //////////////new function
         let validateEmail = !validate(login)
         let validatePassword = !(validPassword(password) || password === newPassword)
 
@@ -110,19 +106,18 @@ export default function Auth() {
             password: validatePassword
         })
 
-        if (validateEmail || validatePassword) {
-            return
-        }
-
+        if (validateEmail || validatePassword) return
 
         api.post('mail/change-password', {
             login, password
         })
             .then(() => {
+                setAlert({ status: ALERT.SUCCESS, message: "A password confirmation email has been sent to your email address. Follow the link to confirm" })
+                navigation('/auth', { state: { auth: AUTH.LOGIN } })
                 console.log("SEND CHANGE PASSWORD")
             })
             .catch(e => {
-               
+
             })
     }
 

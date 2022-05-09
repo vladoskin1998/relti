@@ -44,9 +44,13 @@ export default function List(): ReactElement {
             {
                 posts.map((it, index) => <ListItem post={it} key={index + it._id} getList={getList} />)
             }
-            <div className="list-pagination">
+            {   posts.length 
+                ? <div className="list-pagination">
                 <PaginationItem page={page} changePage={setPage} totalPages={totalPages} />
-            </div>
+                </div>
+                : <></>
+            }
+           
         </div>
     );
 }

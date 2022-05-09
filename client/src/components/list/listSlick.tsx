@@ -24,7 +24,6 @@ export default function ListSlich({ images }: { images: string[] }): ReactElemen
                 <Box className="list__item" key={image + index}>
                 <CardMedia
                     component="img"
-                    height="400"
                     image={`${baseURL}/images/${image}`}
                     alt="Not found images"
                     className="list__item-img"
