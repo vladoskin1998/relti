@@ -6,13 +6,13 @@ import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import { baseURL } from '../../config'
 
-export default function ListSlich({ images }: { images: string[] }): ReactElement {
+export default function ListSlich({ images,open=false }: { images: string[],open?:boolean }): ReactElement {
 
     let settings = {
         dots: false,
         infinite: true,
-        nextArrow: <ArrowCircleRightIcon/>,
-        prevArrow: <ArrowCircleLeftIcon/>,
+        nextArrow: open ? <ArrowCircleRightIcon/> : <></>,
+        prevArrow: open ? <ArrowCircleLeftIcon/> : <></>,
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,

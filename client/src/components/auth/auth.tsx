@@ -37,10 +37,16 @@ export default function Auth() {
     const { setAlert } = useContext(Context)
 
     useEffect(() => {
+        setLogin(s => s.trim())
+        setPassword(s => s.trim())
+        setNewPassword(s => s.trim())
+    },[login,password,newPassword])
+
+    useEffect(() => {
         setLogin('')
         setPassword('')
-        setValidInput({ login: false, password: false })
         setNewPassword('')
+        setValidInput({ login: false, password: false })
     }, [state])
 
     const checkForm = (message: ErrorAuthType) => {

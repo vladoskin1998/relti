@@ -11,7 +11,7 @@ import FilterSearch from './filter/filter-search';
 import Filter from './filter/filter'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Tooltip from '@mui/material/Tooltip';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { ROLE } from '../../enum/enum'
 import { parseToken } from '../../actions/parseToken'
 import MenuIcon from '@mui/icons-material/Menu';
@@ -20,6 +20,7 @@ import MenuNavigation from './menuNavigation';
 export default function Navigation() {
 
     const navigation = useNavigate()
+    let location = useLocation();
 
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const [anchorElFilter, setAnchorElFilter] = React.useState<null | HTMLElement>(null);
@@ -51,16 +52,21 @@ export default function Navigation() {
                             </IconButton >
                         </>
                     </Tooltip>
-
-                    <FilterSearch />
-                    <Tooltip title="Filter">
-                        <IconButton size="large" color="inherit" onClick={hOFilter}>
-                            <FilterAltIcon />
-                        </IconButton>
-                    </Tooltip>
                     {
-                        ROLE.ADMIN === parseToken.payload?.role ?
-                            <Tooltip title="Add new post">
+                        location.pathname === '/'
+                            ? <>
+                                <FilterSearch />
+                                <Tooltip title="Filter">
+                                    <IconButton size="large" color="inherit" onClick={hOFilter}>
+                                        <FilterAltIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            </>
+                            : <></>
+                    }
+                    {
+                        ROLE.ADMIN === parseToken.payload?.role
+                            ? <Tooltip title="Add new post">
                                 <IconButton size="large" color="inherit" onClick={() => navigation("/add-post")}>
                                     <AddCircleOutlineIcon />
                                 </IconButton >

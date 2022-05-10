@@ -13,11 +13,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 export default function Send() {
 
     const [message, setMessage] = useState('')
-    const { setAlert } = useContext(Context)
+    const { setAlert,setLoader } = useContext(Context)
     const [files, setFiles] = useState(null)
 
     const send = () => {
-
+        setLoader(true)
         let formData = new FormData()
 
         if(files){
@@ -35,13 +35,14 @@ export default function Send() {
 
         api.post('/mail/send', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
             .then(() => {
-            //    {status:ALERT.NONE, message: ""}
                 setAlert({status: ALERT.SUCCESS, message: "send mail success" })
                 setMessage('')
                 setFiles(null)
+                setLoader(false)
             })
             .catch(function (error) {
                 console.log(error);
+                setLoader(false)
             });
     }
 

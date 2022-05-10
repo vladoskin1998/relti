@@ -7,6 +7,7 @@ import { apiAuth } from '../../api/api'
 import { useDispatch } from 'react-redux';
 import Context from '../../context/context';
 import { ALERT } from '../../enum/enum'
+import { AuthType } from '../../types/types'
 
 export default function MenuUser({
     anchorEl,
@@ -21,32 +22,27 @@ export default function MenuUser({
 
     const { setAlert } = useContext(Context)
 
-    const singIn = () => {
-        navigation('/auth', { state: { auth: AUTH.LOGIN } })
-        handleMenuClose()
-    }
-
-    const singUp = () => {
-        navigation('/auth', { state: { auth: AUTH.REGISTRATION } })
-        handleMenuClose()
+    const handlerMenu = (s: {auth: AuthType}) => {
+        return () => {
+            handleMenuClose()
+            navigation('/auth', { state: s })
+        }
     }
 
     const exit = () => {
-        navigation('/', { state: { auth: AUTH.LOGIN } })
+        handleMenuClose()
+        navigation('/')
         dispatch({ type: "AUTH_DELETE" })
         apiAuth.post('/logout')
-            .then(res => console.log())
             .catch(e => setAlert({status: ALERT.SUCCESS, message: "You exit in profile"}))
-
-        handleMenuClose()
     }
 
     return (<Modal
         anchorEl={anchorEl}
         handleMenuClose={handleMenuClose}
     >
-        <MenuItem onClick={singIn}>Sing in</MenuItem>
-        <MenuItem onClick={singUp}>Sing up</MenuItem>
+        <MenuItem onClick={handlerMenu({ auth: AUTH.LOGIN })}>Sing in</MenuItem>
+        <MenuItem onClick={handlerMenu({ auth: AUTH.REGISTRATION })}>Sing up</MenuItem>
         <MenuItem onClick={exit}>Exit</MenuItem>
     </Modal>
     )

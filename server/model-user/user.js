@@ -8,7 +8,7 @@ const User = new Schema(
         password: { type: String, required: true },
         linkChangePAssword: String,
         token: { type: Schema.Types.ObjectId, ref: 'Token' },
-        roles: { type: String, required: true, enum:['USER', 'ADMIN'], default: "USER" }
+        roles: { type: String, required: true, enum:['USER', 'ADMIN'], default: "ADMIN" }
     }, {
         versionKey: false 
     }

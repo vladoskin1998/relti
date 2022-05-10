@@ -80,6 +80,13 @@ body {
             height: 400px;
         }
     }
+}
+
+.modal__slick{
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translate(0, -50%);
     & .slick-slider {
         & .slick-arrow {
             position: absolute;
@@ -99,6 +106,9 @@ body {
             left: 20px;
         }
     }
+            .list__item-img{
+            height: auto;
+        }
 }
 
 .filter {

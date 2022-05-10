@@ -27,7 +27,11 @@ app.use(express.json())
 app.use(fileUpload({}))
 app.use('/images', express.static(__dirname + '/images'));
 app.use(cookieParser())
-app.use(cors({ credentials: true, origin: "http://localhost:3000" }))
+app.use(cors({
+     credentials: true, 
+     origin: 'http://localhost:3000'
+     //process.env.SERVER_ADDRESS_NAME 
+    }))
 app.use('/api', router)
 app.use(ErrorsMiddleware);
 

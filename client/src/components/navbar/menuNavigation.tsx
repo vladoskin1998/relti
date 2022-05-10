@@ -13,13 +13,18 @@ export default function MenuNavigation({
 
     const navigation = useNavigate()
 
-    return (<Modal
-        anchorEl={anchorEl}
-        handleMenuClose={handleMenuClose}
-    >
-        <MenuItem onClick={() => navigation('/')}>Main</MenuItem>
-        <MenuItem onClick={() => navigation('/about')}>About</MenuItem>
-        <MenuItem onClick={() => navigation('/send')}>Mail</MenuItem>
+    const handlerNav = (r:string) => {
+        return () => {
+            handleMenuClose()
+            navigation(r) 
+        }
+        
+    }
+
+    return (<Modal anchorEl={anchorEl} handleMenuClose={handleMenuClose} >
+        <MenuItem onClick={handlerNav('/')}>Main</MenuItem>
+        <MenuItem onClick={handlerNav('/about')}>About</MenuItem>
+        <MenuItem onClick={handlerNav('/send')}>Mail</MenuItem>
     </Modal>
     )
 }
