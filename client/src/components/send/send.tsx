@@ -13,7 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 export default function Send() {
 
     const [message, setMessage] = useState('')
-    const { setAlert,setLoader } = useContext(Context)
+    const { setAlert, setLoader } = useContext(Context)
     const [files, setFiles] = useState(null)
 
     const send = () => {

@@ -32,6 +32,10 @@ export default function Navigation() {
 
     const hONav = (event: React.MouseEvent<HTMLElement>) => setAnchorElNav(event.currentTarget);
 
+
+    
+    //console.log(parseToken?.payload.login)
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -82,7 +86,11 @@ export default function Navigation() {
                         </Box>
                         <Tooltip title="Profile">
                             <IconButton size="large" color="inherit" onClick={hOProfile}>
-                                <AccountCircle />
+                            {
+                                localStorage.getItem('accessToken') 
+                                ? <Box className='nav__profile'>{parseToken?.payload.login[0]}</Box>
+                                : <AccountCircle />
+                            }
                             </IconButton>
                         </Tooltip>
                     </Box>

@@ -29,8 +29,8 @@ app.use('/images', express.static(__dirname + '/images'));
 app.use(cookieParser())
 app.use(cors({
      credentials: true, 
-     origin: 'http://localhost:3000'
-     //process.env.SERVER_ADDRESS_NAME 
+    origin: 'http://localhost:3000'
+ //    origin: process.env.SERVER_ADDRESS_NAME 
     }))
 app.use('/api', router)
 app.use(ErrorsMiddleware);
@@ -46,3 +46,7 @@ async function main() {
 }
 
 main()
+
+
+//SERVER_ADDRESS_NAME=http://localhost:5000/
+//SERVER_ADDRESS_NAME=https://arcane-scrubland-00147.herokuapp.com/
