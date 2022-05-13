@@ -7,12 +7,9 @@ import router from './router.js'
 import ErrorsMiddleware from './midlleware-server/errorsMidlleware.js';
 import path from 'path'
 import fileUpload from 'express-fileupload'
-import domain from 'domain'
 
 const app = express()
 const __dirname = path.resolve()
-
-
 
 // console.log(process.env)
 
@@ -30,10 +27,14 @@ app.use(cookieParser())
 app.use(cors({
      credentials: true, 
     origin: 'http://localhost:3000'
- //    origin: process.env.SERVER_ADDRESS_NAME 
+  //  origin: process.env.SERVER_ADDRESS_NAME 
     }))
 app.use('/api', router)
 app.use(ErrorsMiddleware);
+
+app.use((req, res, next) => { 
+    res.sendFile(path.join(__dirname, "client", "build", "index.html")); 
+});
 
 async function main() {
     const DB = await mongoose.connect(URL_DB, { useUnifiedTopology: true, useNewUrlParser: true })

@@ -38,16 +38,13 @@ export function RenderCbLab() {
 
 export function BasicTextFields() {
 
-    const [minPrice, setMinPrice] = useDelayInput("F_CHANGE_MINPRICE")
-    const [maxPrice, setMaxPrice] = useDelayInput("F_CHANGE_MAXPRICE")
-
     const select: CurrencyType[] = [CURRENCY.UAH, CURRENCY.USD, CURRENCY.EUR]
 
     const dispatch = useDispatch()
 
-    const { currency } = useSelector((state: RootState) => state.ChangeFilter)
+    const { currency, price } = useSelector((state: RootState) => state.ChangeFilter)
 
-    const handlerInput = (e: SelectChangeEvent, t: string) => {
+    const handlerInput = (e: (SelectChangeEvent | React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>), t: string) => {
         dispatch({ type: t, payload: e.target.value })
     }
 
@@ -55,8 +52,18 @@ export function BasicTextFields() {
         <FormControl>
             <FormLabel id="demo-radio-buttons-group-label">Price</FormLabel>
             <Box component="form" className="filter__price">
-                <TextField type="number" id="outlined-basic" label="min price" variant="outlined" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} />
-                <TextField type="number" id="outlined-basic" label="max price" variant="outlined" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} />
+                <TextField type="number" 
+                    id="outlined-basic" 
+                    label="min price" 
+                    variant="outlined" 
+                    value={price.toPrice || ''} 
+                    onChange={(e) => handlerInput(e, "F_CHANGE_MINPRICE")} />
+                <TextField type="number" 
+                    id="outlined-basic" 
+                    label="max price" 
+                    variant="outlined" 
+                    value={price.fromPrice || ''} 
+                    onChange={(e) => handlerInput(e, "F_CHANGE_MAXPRICE")} />
                 <SelectChange currency={currency} handlerInput={e => handlerInput(e, "F_CHANGE_CURRENCY")} item={select} />
             </Box>
         </FormControl>

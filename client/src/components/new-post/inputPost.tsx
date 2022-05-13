@@ -69,6 +69,8 @@ export default function InputPost(): ReactElement {
                     />
                 </Box>
             </Box>
+
+            
         </>
     );
 }

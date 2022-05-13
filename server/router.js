@@ -1,7 +1,7 @@
 import { Router } from 'express'
-import postRouter from './posts/postRouter/postRouter.js'
-import authRouter from './auth/authRouter/authRouter.js'
-import mailRouter from './mail/mailRouter/mailRouter.js'
+import postRouter from './routes/postRouter.js'
+import authRouter from './routes/authRouter.js'
+import mailRouter from './routes/mailRouter.js'
 
 const router = new Router()
 

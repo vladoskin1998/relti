@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState, useContext } from "react";
+import React, { ReactElement, useEffect, useState, useContext, useCallback } from "react";
 import ListItem from './listItem'
 import { api } from '../../api/api'
 import { AxiosResponse } from 'axios'
@@ -7,21 +7,28 @@ import PaginationItem from './paginationItem'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../store/store'
 import Context from '../../context/context';
+import { useSearchParams } from "react-router-dom";
 
 export default function List(): ReactElement {
 
+    const [searchParams, setSearchParams] = useSearchParams({});
     const [posts, setPost] = useState<PostItemInterface[]>([])
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(+searchParams.get("page") || 1)
     const [totalPages, setTotalPages] = useState(0)
 
-    const { setLoader } = useContext(Context)
+    let { setLoader, getPosts } = useContext(Context)
 
     const filter = useSelector((state: RootState) => state.ChangeFilter)
 
-    const getList = () => {
+
+    const getList = (num?: number) => {
+
         setLoader(true)
+
+        if (num) { setPage(num) }
+
         api.post('/post/get-post', {
-            number: page,
+            number: num || page,
             ...filter
         })
             .then((response: AxiosResponse<{ docs: PostItemInterface[], totalPages: number }>) => {
@@ -35,22 +42,30 @@ export default function List(): ReactElement {
             });
     }
 
+    getPosts.current = getList
+
     useEffect(() => {
         getList()
-    }, [page, filter])
+    }, [filter.street])
+
+    const onChangePage = (num: number) => {
+        setSearchParams({ page: `${num}` })
+        getList(num)
+        setPage(num)
+    }
 
     return (
         <div className="list">
             {
                 posts.map((it, index) => <ListItem post={it} key={index + it._id} getList={getList} />)
             }
-            {   posts.length 
+            {posts.length
                 ? <div className="list-pagination">
-                <PaginationItem page={page} changePage={setPage} totalPages={totalPages} />
+                    <PaginationItem page={page} changePage={onChangePage} totalPages={totalPages} />
                 </div>
                 : <></>
             }
-           
+
         </div>
     );
 }

@@ -38,7 +38,7 @@ export default function ListSlich({ images, open = false }: { images: string[], 
             </Slider>
             {
                 !open
-                    ? <Pagination page={page} count={images.length} hidePrevButton hideNextButton size="small" sx={{ display: 'flex', justifyContent: 'center', paddingTop: '10px' }} />
+                    ? <Pagination color="primary" page={page} count={images.length} hidePrevButton hideNextButton size="small" sx={{ display: 'flex', justifyContent: 'center', paddingTop: '10px' }} />
                     : <></>
             }
 

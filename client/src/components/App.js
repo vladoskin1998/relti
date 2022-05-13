@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Navigation from "./navbar/navigation.tsx";
 import List from './list/list.tsx';
 import '../style/style.scss'
@@ -15,6 +15,7 @@ import { parseToken } from '../actions/parseToken';
 import axios from 'axios';
 import AlertMessage from '../ui/message';
 import { baseURL } from '../config'
+import ItemScreen from './list/itemScreen';
 
 function App() {
 
@@ -23,6 +24,8 @@ function App() {
     const [alert, setAlert] = useState({status:ALERT.NONE, message: ""})
 
     const dispatch = useDispatch()
+
+    let getPosts = useRef(null)
 
     let location = useLocation();
 
@@ -42,12 +45,13 @@ function App() {
     }, [])
 
     return (
-        <LoaderContext.Provider value={{ setLoader, setAlert }}>
+        <LoaderContext.Provider value={{ setLoader, setAlert, getPosts }}>
             <div className="nav">
                 <Navigation />
             </div>
             <Routes>
                 <Route path="/" element={<List />} />
+                <Route path="/slick" element={<ItemScreen />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/auth" element={<Auth />} />
                 {
@@ -62,6 +66,7 @@ function App() {
                         : <Route path="*" element={<Navigate to="/auth" state={{ auth: AUTH.LOGIN }} replace />} />
 
                 }
+                <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
             {loader && <Loader />}
             <AlertMessage alert={alert} />

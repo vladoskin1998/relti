@@ -13,9 +13,14 @@ input[type="number"] {
 
 body {
     margin: 0;
-    padding-top: 85px;
+    padding-top: 55px;
     font-family: "Roboto", sans-serif;
     min-height: 100vh;
+    background-color: white;
+}
+
+.root {
+    background: rgb(245, 240, 240);
 }
 
 .nav {
@@ -24,7 +29,7 @@ body {
     left: 0;
     width: 100vw;
     z-index: 1001;
-    &__profile{
+    &__profile {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -72,12 +77,12 @@ body {
     align-items: center;
     row-gap: 20px;
     flex-direction: column;
-
+    margin-top: 30px;
     &-pagination {
         margin: 30px;
     }
 
-    &-card{
+    &-card {
         width: 800px;
     }
 
@@ -93,36 +98,27 @@ body {
     }
 }
 
-.modal__slick{
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    transform: translate(0, -50%);
-    & .slick-slider {
-        & .slick-arrow {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            z-index: 200;
-            opacity: 0.15;
-            cursor: pointer;
-            &:hover{
-                opacity: 0.35;
-            }
-        }
-        & .slick-next {
-            top: 50%;
-            transform: translate(0, -50%);
-            right: 20px;
-        }
-        & .slick-prev {
-            top: 50%;
-            transform: translate(0, -50%);
-            left: 20px;
+.modal {
+    width: 100vw;
+    background: rgba(1, 1, 1, 0.6);
+    z-index: 1000;
+    padding-top: 55px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh - 100px);
+    row-gap: 15px;
+    position: relative;
+    &__close{
+        position: absolute !important;
+        top: 5px;
+        right: 5px;
+        & svg {
+            fill: white;
         }
     }
-    .list__item-img{
-        width: inherit !important;
+    & img{
+        width: 60vw;
         height: auto;
     }
 }
@@ -148,13 +144,27 @@ body {
 
     &__dndimg {
         display: flex;
-        justify-content: center;
-        align-items: center;
         flex-direction: column;
         border: 1px solid $color-main;
         height: 200px;
         border-radius: 4px;
         row-gap: 5px;
+        & > div:first-child {
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            flex-grow: 1;
+        }
+        &-icon {
+            text-align: center;
+            width: 70px;
+            height: 70px;
+            cursor: pointer;
+        }
+        & > div:last-child {
+            text-align: center;
+            padding: 8px;
+        }
     }
 
     &__button {
@@ -305,55 +315,55 @@ body {
     display: none;
 }
 
-
 @media screen and (max-width: 900px) {
     .filter__price {
         display: flex;
         flex-direction: column;
         row-gap: 10px;
     }
-    .list-card{
+    .list-card {
         width: 700px;
     }
-    .list__item-img{
+    .list__item-img {
         height: 350px;
     }
-    .about{
+    .about {
         flex-direction: column;
         row-gap: 15px;
         text-align: center;
     }
-    .send{
+    .send {
         width: 75vw;
     }
-    .add{
-        &>div{
-             grid-template-columns: none;
+    .add {
+        & > div {
+            grid-template-columns: none;
         }
-       
     }
 }
 
-
 @media screen and (max-width: 700px) {
-    .list-card{
+    .list-card {
         width: 390px;
     }
-    .list__item-img{
+    .list__item-img {
         height: 200px;
     }
     .add__text-area {
         height: 45vh !important;
     }
+    .modal{
+        & img{
+            width: 95vw;
+        }
+    }
 }
 
-
-
 @media screen and (max-width: 400px) {
-    .list-card{
+    .list-card {
         width: 300px;
     }
-    .list__item-img{
+    .list__item-img {
         height: 150px;
     }
 }

@@ -1,9 +1,11 @@
-import * as React from 'react';
+import  React, {useContext} from 'react';
 import { RenderCbLab, BasicTextFields, RadioButtonsGroup } from './filter-items';
 import Box from '@mui/material/Box';
 import Modal from '../../../ui/modal';
 import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
+import Context from '../../../context/context';
+import { useDelayInput } from '../../../hooks/useDelayInput';
 
 export default function Filter({
     anchorEl,
@@ -14,6 +16,16 @@ export default function Filter({
 }) {
 
     const dispatch = useDispatch()
+    let { getPosts } = useContext(Context)
+    
+    const handlerOK = () => {
+        getPosts.current()
+        handleMenuClose()
+    }
+
+    const handlerCancel = () => {
+        dispatch({ type: "F_CHANGE_DEFAULT" })
+    }
 
     return (<Modal
         anchorEl={anchorEl}
@@ -24,8 +36,8 @@ export default function Filter({
         <RenderCbLab />
         <RadioButtonsGroup />
         <Box component="div" sx={{ display: "flex", justifyContent: "flex-end", columnGap: "20px" }}>
-            <Button variant="outlined" onClick={() => { dispatch({ type: "F_CHANGE_DEFAULT" }) }}>Default</Button>
-            <Button variant="contained" onClick={handleMenuClose}>Ok</Button>
+            <Button variant="outlined" onClick={handlerCancel}>Cancel</Button>
+            <Button variant="contained" onClick={handlerOK}>Ok</Button>
         </Box>
     </Modal>)
 }

@@ -14,6 +14,7 @@ export default function PaginationItem({
   return (
     <Stack spacing={2}>
       <Pagination count={totalPages}
+        color="primary"
         variant="outlined"
         onChange={(e, p) => changePage(p)}
         page={page} shape="rounded" />

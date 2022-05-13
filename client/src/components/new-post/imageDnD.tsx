@@ -21,9 +21,9 @@ export default function ImageDND({ droppedFiles, setDroppedFiles }: { droppedFil
         [setDroppedFiles],
     )
 
-    const deleteFile = (name:string) => {
+    const deleteFile = (name: string) => {
         setDroppedFiles(
-            droppedFiles.filter((file:any) => file.name !== name)
+            droppedFiles.filter((file: any) => file.name !== name)
         )
     }
 
@@ -32,7 +32,7 @@ export default function ImageDND({ droppedFiles, setDroppedFiles }: { droppedFil
             <FilePresentIcon />
             {file.name.length > 15 ? `${file.name.substring(0, 20)}...` : file.name}
             <Button variant="text" color="error">
-                <DeleteIcon onClick={() => deleteFile(file.name)}/>
+                <DeleteIcon onClick={() => deleteFile(file.name)} />
             </Button>
         </Box>
         )
@@ -43,8 +43,8 @@ export default function ImageDND({ droppedFiles, setDroppedFiles }: { droppedFil
         <TargetBox onDrop={handleFileDrop} />
         {
             droppedFiles.length
-            ?  <Box sx={{paddingTop:"15px"}}>{fileList}</Box>
-            : <></>
+                ? <Box sx={{ paddingTop: "15px" }}>{fileList}</Box>
+                : <></>
         }
     </DndProvider>
     )
@@ -52,6 +52,7 @@ export default function ImageDND({ droppedFiles, setDroppedFiles }: { droppedFil
 }
 
 export const TargetBox = (props: any): ReactElement => {
+
     const { onDrop } = props
     const [{ canDrop, isOver }, drop] = useDrop(
         () => ({
@@ -71,12 +72,29 @@ export const TargetBox = (props: any): ReactElement => {
         [props],
     )
     const isActive = canDrop && isOver
+
+    const addFile = (files: any) => {
+        let arrFile = []
+        for (let file of files) {
+            arrFile.push(file)
+        }
+        onDrop({ files: arrFile })
+    }
+
+
     return (
-        <div ref={drop} className="add__dndimg">
-            {isActive ? <FileDownloadDoneIcon /> : <FileDownloadIcon />}
-            <div>
+        <Box ref={drop} className="add__dndimg">
+            <Box>
+                <label htmlFor="myfile" className='add__dndimg-icon'>
+                    {isActive ? <FileDownloadDoneIcon /> : <FileDownloadIcon />}
+                </label>
+                <input type="file" id="myfile" name="myfile" multiple
+                    onChange={e => addFile(e.target.files)}
+                />
+            </Box>
+            <Box>
                 Download File - jpeg, jpg, png
-            </div>
-        </div>
+            </Box>
+        </Box>
     )
 }

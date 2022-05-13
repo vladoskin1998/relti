@@ -14,14 +14,14 @@ import { ALERT } from '../../enum/enum';
 export default function NewPost(): ReactElement {
 
     const [droppedFiles, setDroppedFiles] = useState([])
-    const { setAlert } = useContext(Context)
+    const { setAlert, setLoader } = useContext(Context)
     const post = useSelector((state: RootState) => state.AddPost)
     const { city, street, address, price } = useSelector((state: RootState) => state.AddPost)
     const dispatch = useDispatch()
     const disableButton = !!city && !!street && !!address && !!price
 
     const addPost = () => {
-
+        setLoader(true)
         const postJson = JSON.stringify(post)
 
         let formData = new FormData()
@@ -35,11 +35,13 @@ export default function NewPost(): ReactElement {
         api.post('/post/add-post', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
             .then(() => {
                 setDroppedFiles([])
-                setAlert({status: ALERT.SUCCESS, message: "post successful add"})
+                setAlert({ status: ALERT.SUCCESS, message: "post successful add" })
                 dispatch({ type: 'AP_INIT' })
+                setLoader(false)
             })
             .catch(function (error) {
                 console.log(error);
+                setLoader(false)
             });
     }
 
