@@ -133,7 +133,12 @@ body {
 
 .add {
     padding: 20px;
-
+    &__body{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        column-gap: 20px;
+        row-gap: 20px;
+    }
     &__text-area {
         min-height: 184px;
         border-radius: 4px;
@@ -245,6 +250,10 @@ body {
         height: 30px;
         width: 15px;
     }
+}
+
+.react-select-container{
+    height: 56px;
 }
 
 .auth {

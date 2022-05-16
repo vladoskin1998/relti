@@ -25,7 +25,7 @@ export default function ListItem({
     getList: (n?: number) => void,
 }) {
 
-    const { city, street, address, price, _id, currency } = post
+    const { city, street, address, price, _id, currency, areas } = post
     const { setLoader, setAlert } = useContext(LoaderContext)
 
     const filter = useSelector((state: RootState) => state.ChangeFilter)
@@ -53,7 +53,7 @@ export default function ListItem({
             </Box>
             <CardContent>
                 <Typography gutterBottom variant="h6" component="div">
-                    {`${city}, ${street}, ${address}`}
+                    {`${city.label}, ${areas.label}, ${street.label}, ${address}`}
                 </Typography>
                 <Typography gutterBottom variant="h5" component="div">
                     {`${price} ${currency}`}

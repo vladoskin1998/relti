@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from "../../store/store";
 import { OPTIONS } from '../../enum/enum'
 import { RentOrBuyType } from '../../types/types'
+import Box from '@mui/material/Box';
 
 export default function RadioPost() {
 
@@ -17,9 +18,13 @@ export default function RadioPost() {
         return () => dispatch({ type: "AP_RENTORBUY", payload: o })
     }
 
-    return (<RadioGroup>
-        <FormControlLabel checked={rentOrBuy === OPTIONS.RENT} onChange={hendlerRadio(OPTIONS.RENT)} control={<Radio />} label="RENT" />
-        <FormControlLabel checked={rentOrBuy === OPTIONS.BUY} onChange={hendlerRadio(OPTIONS.BUY)} control={<Radio />} label="BUY" />
-    </RadioGroup>
+    return (
+        <Box>
+            <RadioGroup>
+                <FormControlLabel checked={rentOrBuy === OPTIONS.RENT} onChange={hendlerRadio(OPTIONS.RENT)} control={<Radio />} label="RENT" />
+                <FormControlLabel checked={rentOrBuy === OPTIONS.BUY} onChange={hendlerRadio(OPTIONS.BUY)} control={<Radio />} label="BUY" />
+            </RadioGroup>
+        </Box>
+
     );
 }

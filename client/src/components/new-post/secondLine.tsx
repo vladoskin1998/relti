@@ -8,9 +8,9 @@ import { SelectChangeEvent } from '@mui/material/Select';
 import { CURRENCY } from '../../enum/enum'
 import { SelectChange } from '../navbar/filter/filter-items'
 
-export default function InputPost(): ReactElement {
+export default function SecondLine(): ReactElement {
 
-    const { city, street, address, price, currency } = useSelector((state: RootState) => state.AddPost)
+    const { storey, numberOfStoreys, square, price, currency } = useSelector((state: RootState) => state.AddPost)
     const select = [CURRENCY.UAH, CURRENCY.USD, CURRENCY.EUR]
 
     const [validInput, setValidInput] = useState<VInputNewPostInterface>({
@@ -32,32 +32,35 @@ export default function InputPost(): ReactElement {
 
     return (
         <>
-            <TextField value={city} onChange={e => handlerInput(e, "AP__CITY")}
-                onBlur={() => handlerValidate('city', !city)}
-                helperText={validInput.city ? "Incorrect entry." : "Input city"}
-                label="CITY"
+            <TextField value={numberOfStoreys} onChange={e => handlerInput(e, "AP__NUM__STOREYS")}
+          //      onBlur={() => handlerValidate('city', !city)}
+                helperText={validInput.city ? "number of storeys" : "number of storeys"}
+                label="Этажность"
                 variant="outlined"
                 error={validInput.city}
+                type="number"
             />
-            <TextField value={street} onChange={e => handlerInput(e, "AP__STREET")}
-                onBlur={() => handlerValidate('street', !street)}
+            <TextField value={storey} onChange={e => handlerInput(e, "AP__STOREYS")}
+            //    onBlur={() => handlerValidate('street', !street)}
                 helperText={validInput.street ? "Incorrect entry." : "Input street"}
-                label="STREET"
+                label="Этаж"
                 variant="outlined"
                 error={validInput.street}
+                type="number"
             />
-            <TextField value={address} onChange={e => handlerInput(e, "AP__ADDRESS")}
-                onBlur={() => handlerValidate('address', !address)}
+            <TextField value={square} onChange={e => handlerInput(e, "AP__SQUARE")}
+          //      onBlur={() => handlerValidate('address', !address)}
                 helperText={validInput.address ? "Incorrect entry." : "Input address"}
-                label="ADDRESS"
+                label="Площадь"
                 variant="outlined"
                 error={validInput.address}
+                type="number"
             />
             <Box className="add__input-price">
                 <TextField value={price} onChange={e => handlerInput(e, "AP__PRICE")}
                     onBlur={() => handlerValidate('price', !price)}
                     helperText={validInput.price ? "Incorrect entry." : "Input price"}
-                    label="PRICE"
+                    label="Цена"
                     variant="outlined"
                     error={validInput.price}
                     type="number"

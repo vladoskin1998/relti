@@ -1,11 +1,11 @@
 import { Router } from 'express'
-import MailController from '../controler/mailController.js'
+import MailController from '../controller/mailController.js'
 import authUserRole from '../midlleware-server/authUserRole.js'
 
-const mailRouter = new Router()
+const MailRouter = new Router()
 
-mailRouter.post('/send', authUserRole(["ADMIN", "USER"]), MailController.sendUserMail)
+MailRouter.post('/send', authUserRole(["ADMIN", "USER"]), MailController.sendUserMail)
 
-mailRouter.post('/change-password', MailController.sendChangePassword)
+MailRouter.post('/change-password', MailController.sendChangePassword)
 
-export default mailRouter
+export default MailRouter

@@ -1,12 +1,14 @@
 import { Router } from 'express'
-import postRouter from './routes/postRouter.js'
-import authRouter from './routes/authRouter.js'
-import mailRouter from './routes/mailRouter.js'
+import PostRouter from './routes/postRouter.js'
+import AuthRouter from './routes/authRouter.js'
+import MailRouter from './routes/mailRouter.js'
+import GeoRouter from './routes/geoRouter.js'
 
 const router = new Router()
 
-router.use('/auth', authRouter)
-router.use('/post', postRouter)
-router.use('/mail', mailRouter)
+router.use('/auth', AuthRouter)
+router.use('/post', PostRouter)
+router.use('/mail', MailRouter)
+router.use('/geo', GeoRouter)
 
 export default router

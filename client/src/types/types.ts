@@ -6,10 +6,19 @@ export type AlertType = ALERT.ERROR | ALERT.SUCCESS | ALERT.NONE
 export type CurrencyType = CURRENCY.EUR | CURRENCY.USD | CURRENCY.UAH 
 export type ErrorAuthType = ERRORAUTH.LOGIN | ERRORAUTH.PASSWORD
 
+export interface SelectInterface{
+    label: string,
+    value: string,
+}
+
 export interface PostItemInterface{
     _id?: string,
-    city: string,
-    street: string,
+    city: SelectInterface | null,
+    areas: SelectInterface | null,
+    street: SelectInterface | null,
+    square: number | string,
+    numberOfStoreys: number | string,
+    storey: number | string,
     address: string,
     currency: CurrencyType,
     price: string,

@@ -1,6 +1,6 @@
 import React, { ReactElement, useState, useContext } from "react";
 import Textarea from './textArea';
-import InputPost from './inputPost';
+import SecondLine from './secondLine';
 import RadioPost from './radioPost';
 import ImageDND from './imageDnD'
 import Box from '@mui/material/Box';
@@ -10,6 +10,7 @@ import { RootState } from "../../store/store";
 import { api } from '../../api/api'
 import Context from '../../context/context';
 import { ALERT } from '../../enum/enum';
+import FirstLine from './firstLine'
 
 export default function NewPost(): ReactElement {
 
@@ -46,28 +47,18 @@ export default function NewPost(): ReactElement {
     }
 
     return (
-        <div className="add">
-            <Box component="div"
-                sx={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr 1fr 1fr",
-                    columnGap: "20px",
-                    rowGap: "20px"
-                }}
-            >
-                <InputPost />
-                <Box>
-                    <RadioPost />
-                </Box>
-                <Box>
-                    <ImageDND droppedFiles={droppedFiles} setDroppedFiles={setDroppedFiles} />
-                </Box>
+        <Box className="add">
+            <Box component="div" className="add__body">
+                <FirstLine />
+                <SecondLine />
+                <RadioPost />
+                <ImageDND droppedFiles={droppedFiles} setDroppedFiles={setDroppedFiles} />
                 <Textarea />
                 <Box className="add__button">
                     <Button variant="contained" onClick={addPost} disabled={!disableButton}>ADDNEWPOST</Button>
                 </Box>
             </Box>
-        </div>
+        </Box>
     );
 }
 

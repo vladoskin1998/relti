@@ -11,8 +11,6 @@ class PostService {
 
         const query = new PaginationDto(filter)
 
-        // console.log(query)
-
         const options = {
             page: number,
             limit: LIMIT_PAGE,
@@ -33,6 +31,8 @@ class PostService {
 
         try {
             const clientPost = JSON.parse(post)
+            const { city, street, areas } = JSON.parse(post)
+            console.log(clientPost)
 
             let images = []
             for (let key in files) {
@@ -40,7 +40,7 @@ class PostService {
             }
 
             const newPost = {
-                ...clientPost,
+                ...clientPost, city: city?.label, areas: areas?.label, street: street?.label,
                 images: images.map(image => fileService.saveFile(image))
             }
 
@@ -57,7 +57,7 @@ class PostService {
         try {
 
             console.log(filter)
-            
+
             let { images } = await Post.findByIdAndRemove(id)
             images.map(image => fileService.deleteFile(image))
 
