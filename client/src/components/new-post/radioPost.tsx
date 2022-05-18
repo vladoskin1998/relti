@@ -21,8 +21,8 @@ export default function RadioPost() {
     return (
         <Box>
             <RadioGroup>
-                <FormControlLabel checked={rentOrBuy === OPTIONS.RENT} onChange={hendlerRadio(OPTIONS.RENT)} control={<Radio />} label="RENT" />
-                <FormControlLabel checked={rentOrBuy === OPTIONS.BUY} onChange={hendlerRadio(OPTIONS.BUY)} control={<Radio />} label="BUY" />
+                <FormControlLabel checked={rentOrBuy === OPTIONS.RENT} onChange={hendlerRadio(OPTIONS.RENT)} control={<Radio />} label="Аренда" />
+                <FormControlLabel checked={rentOrBuy === OPTIONS.BUY} onChange={hendlerRadio(OPTIONS.BUY)} control={<Radio />} label="Продажа" />
             </RadioGroup>
         </Box>
 

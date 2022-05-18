@@ -80,9 +80,9 @@ export default function Navigation() {
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: 'flex' }}>
                         <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center', columnGap: "19px" }} className="nav__route">
-                            <Box onClick={() => navigation('/')} >Main</Box>
-                            <Box onClick={() => navigation('/about')} >About</Box>
-                            <Box onClick={() => navigation('/send')} >Mail</Box>
+                            <Box onClick={() => navigation('/')} >Главная</Box>
+                            <Box onClick={() => navigation('/about')} >Контакты</Box>
+                            <Box onClick={() => navigation('/send')} >Почта</Box>
                         </Box>
                         <Tooltip title="Profile">
                             <IconButton size="large" color="inherit" onClick={hOProfile}>

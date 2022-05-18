@@ -157,7 +157,7 @@ body {
         & > div:first-child {
             display: flex;
             justify-content: center;
-            align-items: end;
+            align-items: flex-end;
             flex-grow: 1;
         }
         &-icon {
@@ -176,6 +176,7 @@ body {
         display: flex;
         justify-content: flex-end;
         align-items: flex-end;
+        flex-direction: column;
     }
     &__input {
         &-price {

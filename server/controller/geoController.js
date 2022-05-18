@@ -28,8 +28,6 @@ class GeoController {
 
         const query = url.parse(req.url, true).query;
 
-        console.log("getStreet-->",query)
-
         const streets = await GeoService.getStreet(query?.idCity, query?.street)
 
         return res.json({streets})

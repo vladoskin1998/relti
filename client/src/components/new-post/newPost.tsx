@@ -11,15 +11,16 @@ import { api } from '../../api/api'
 import Context from '../../context/context';
 import { ALERT } from '../../enum/enum';
 import FirstLine from './firstLine'
+import { FormHelperText } from '@mui/material';
 
 export default function NewPost(): ReactElement {
 
     const [droppedFiles, setDroppedFiles] = useState([])
     const { setAlert, setLoader } = useContext(Context)
     const post = useSelector((state: RootState) => state.AddPost)
-    const { city, street, address, price } = useSelector((state: RootState) => state.AddPost)
+    const { city, street, address, price, square } = useSelector((state: RootState) => state.AddPost)
     const dispatch = useDispatch()
-    const disableButton = !!city && !!street && !!address && !!price
+    const disableButton = !!city?.label && !!street?.label && !!address && !!price && !!square
 
     const addPost = () => {
         setLoader(true)
@@ -55,7 +56,15 @@ export default function NewPost(): ReactElement {
                 <ImageDND droppedFiles={droppedFiles} setDroppedFiles={setDroppedFiles} />
                 <Textarea />
                 <Box className="add__button">
-                    <Button variant="contained" onClick={addPost} disabled={!disableButton}>ADDNEWPOST</Button>
+                    <Button variant="contained" onClick={addPost} disabled={!disableButton}>
+                        Добавить пост
+                    </Button>
+                    {
+                        !disableButton
+                            ? <FormHelperText component='div'>3аполните обязательные поля</FormHelperText>
+                            : <></>
+                    }
+
                 </Box>
             </Box>
         </Box>

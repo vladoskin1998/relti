@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../store/store'
 import Context from '../../context/context';
 import { useSearchParams } from "react-router-dom";
+import Box from '@mui/material/Box';
 
 export default function List(): ReactElement {
 
@@ -55,18 +56,18 @@ export default function List(): ReactElement {
     }
 
     return (
-        <div className="list">
+        <Box className="list">
             {
                 posts.map((it, index) => <ListItem post={it} key={index + it._id} getList={getList} />)
             }
             {posts.length
-                ? <div className="list-pagination">
+                ? <Box className="list-pagination">
                     <PaginationItem page={page} changePage={onChangePage} totalPages={totalPages} />
-                </div>
+                </Box>
                 : <></>
             }
 
-        </div>
+        </Box>
     );
 }
 

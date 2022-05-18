@@ -50,7 +50,6 @@ class GeoService {
 
 
     async getStreet(idCity, street) {
-        
 
         try {
 
@@ -71,10 +70,43 @@ class GeoService {
         } catch (error) {
             console.log(error)
         }
+    }
 
+    async addGeoData(post) {
 
+        const { city, street } = post
+        let idCity = city?.value
+        console.log('post--->', post)
 
+        if (!idCity) {
+            const newCityDB = await new Cities({ cityName: city?.label })
+            idCity = await newCityDB.save()
 
+            if(post?.areas){
+                const newAreaDB = await new Areas({ areaName: post.areas.label, idCity: idCity })
+                await newAreaDB.save()
+            }
+
+            const newStreetDB = await new Streets({ streetName: street.label, idCity: idCity })
+            await newStreetDB.save()
+
+            return
+        }
+
+        const areaDB = await Areas.findOne({ areaName: post?.areas?.label, idCity: idCity })
+        const streetDB = await Streets.findOne({ cityName: street.label, idCity: idCity })
+
+        if (!areaDB && post?.areas) {
+            const newAreaDB = await new Areas({ areaName: post?.areas?.label, idCity: idCity })
+            await newAreaDB.save()
+        }
+
+        if (!streetDB) {
+            const newStreetDB = await new Streets({ streetName: street.label, idCity: idCity })
+            await newStreetDB.save()
+        }
+
+        return
     }
 
 }

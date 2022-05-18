@@ -41,9 +41,9 @@ export default function MenuUser({
         anchorEl={anchorEl}
         handleMenuClose={handleMenuClose}
     >
-        <MenuItem onClick={handlerMenu({ auth: AUTH.LOGIN })}>Sing in</MenuItem>
-        <MenuItem onClick={handlerMenu({ auth: AUTH.REGISTRATION })}>Sing up</MenuItem>
-        <MenuItem onClick={exit}>Exit</MenuItem>
+        <MenuItem onClick={handlerMenu({ auth: AUTH.LOGIN })}>Вход</MenuItem>
+        <MenuItem onClick={handlerMenu({ auth: AUTH.REGISTRATION })}>Регистрация</MenuItem>
+        <MenuItem onClick={exit}>Выход</MenuItem>
     </Modal>
     )
 }

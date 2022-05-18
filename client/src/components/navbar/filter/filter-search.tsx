@@ -61,7 +61,7 @@ export default function FilterSearch(): ReactElement {
                     e.target.value
                     
                 )}
-                placeholder="Search street…"
+                placeholder="Поиск город, ул., р-н."
                 inputProps={{ 'aria-label': 'search' }}
             />
         </Search>

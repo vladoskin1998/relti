@@ -50,7 +50,7 @@ function App() {
                 <Navigation />
             </div>
             <Routes>
-                {/* <Route path="/" element={<List />} /> */}
+                <Route path="/" element={<List />} />
                 <Route path="/slick" element={<ItemScreen />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/auth" element={<Auth />} />
@@ -66,7 +66,7 @@ function App() {
                         : <Route path="*" element={<Navigate to="/auth" state={{ auth: AUTH.LOGIN }} replace />} />
 
                 }
-                {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
+                <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
             {loader && <Loader />}
             <AlertMessage alert={alert} />

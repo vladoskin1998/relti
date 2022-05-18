@@ -26,8 +26,8 @@ app.use('/images', express.static(__dirname + '/images'));
 app.use(cookieParser())
 app.use(cors({
      credentials: true, 
-    origin: 'http://localhost:3000'
-  //  origin: process.env.SERVER_ADDRESS_NAME 
+  //  origin: 'http://localhost:3000'
+    origin: process.env.SERVER_ADDRESS_NAME 
     }))
 app.use('/api', router)
 app.use(ErrorsMiddleware);

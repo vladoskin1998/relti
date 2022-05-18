@@ -4,8 +4,8 @@ const { Schema, model } = mongoose;
 
 const Streets = new Schema(
     {
-        streetName: { type: String, required: true, unique: true },
-        idCity: { type: Schema.Types.ObjectId, ref: 'Cities' },
+        streetName: { type: String, required: true},
+        idCity: { type: Schema.Types.String, ref: 'Cities', unique: true  },
     }, {
         versionKey: false 
     }

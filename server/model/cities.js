@@ -4,7 +4,7 @@ const { Schema, model } = mongoose;
 
 const Cities = new Schema(
     {
-        cityName: { type: String, required: true, unique: true },
+        cityName: { type: String, unique: true, required: true },
     }, {
         versionKey: false 
     }

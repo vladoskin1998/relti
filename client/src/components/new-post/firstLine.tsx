@@ -4,10 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import AsyncSelect from 'react-select/async';
 import { SelectInterface } from '../../types/types';
 import { RootState } from "../../store/store";
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { SelectChange } from '../navbar/filter/filter-items'
-import { CURRENCY } from '../../enum/enum'
+import { FormHelperText } from '@mui/material';
+import Box from '@mui/material/Box';
 
 const customStyles = {
     container: (provided: any) => ({ ...provided, zIndex: 202, }),
@@ -54,40 +53,49 @@ export default function FirstLine() {
 
     return (
         <>
-            <AsyncSelect 
-                value={city}
-                onChange={(v: SelectInterface) => handlerInput(v, 'AP__CITY')}
-                defaultOptions
-                loadOptions={optionsCity}
-                isClearable
-                styles={customStyles}
-                placeholder='Город'
-            />
-            <AsyncSelect 
-                value={areas}
-                onChange={(v: SelectInterface) => handlerInput(v, 'AP__AREAS')}
-                defaultOptions={areasList}
-                loadOptions={optionsArea}
-                isClearable
-                styles={customStyles}
-                placeholder='Район'
-            />
-            <AsyncSelect 
-                value={street}
-                onChange={(v: SelectInterface) => handlerInput(v, 'AP__STREET')}
-                defaultOptions={streetsList}
-                loadOptions={optionsStreet}
-                isClearable
-                styles={customStyles}
-                placeholder='Улица'
-            />
+            <Box>
+                <AsyncSelect
+                    value={city}
+                    onChange={(v: SelectInterface) => handlerInput(v, 'AP__CITY')}
+                    defaultOptions
+                    loadOptions={optionsCity}
+                    isClearable
+                    styles={{ ...customStyles, container: (provided: any) => ({ ...provided, zIndex: 205, }) }}
+                    placeholder='Город'
+                />
+                <FormHelperText sx={{ marginLeft: "14px" }}>Обязательное поле</FormHelperText>
+            </Box>
+            <Box>
+                <AsyncSelect
+                    value={areas}
+                    onChange={(v: SelectInterface) => handlerInput(v, 'AP__AREAS')}
+                    defaultOptions={areasList}
+                    loadOptions={optionsArea}
+                    isClearable
+                    styles={{ ...customStyles, container: (provided: any) => ({ ...provided, zIndex: 204, }) }}
+                    placeholder='Район'
+                />
+                <FormHelperText sx={{ marginLeft: "14px" }}>Не обязательное поле</FormHelperText>
+            </Box>
+            <Box>
+                <AsyncSelect
+                    value={street}
+                    onChange={(v: SelectInterface) => handlerInput(v, 'AP__STREET')}
+                    defaultOptions={streetsList}
+                    loadOptions={optionsStreet}
+                    isClearable
+                    styles={{ ...customStyles, container: (provided: any) => ({ ...provided, zIndex: 203, }) }}
+                    placeholder='Улица'
+                    aria-errormessage="fdvs"
+                />
+                <FormHelperText sx={{ marginLeft: "14px" }}>Обязательное поле </FormHelperText>
+            </Box>
             <TextField value={address} onChange={e => handlerInput(e.target.value, "AP__HOUSE__NUM")}
-                //     onBlur={() => handlerValidate('address', !address)}
-                //     helperText={validInput.address ? "Incorrect entry." : "Input address"}
+                helperText="Обязательное поле"
                 label="Номер дома"
                 variant="outlined"
-            //    error={validInput.address}
             />
+
         </>
     );
 }

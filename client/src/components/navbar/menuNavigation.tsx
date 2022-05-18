@@ -22,9 +22,9 @@ export default function MenuNavigation({
     }
 
     return (<Modal anchorEl={anchorEl} handleMenuClose={handleMenuClose} >
-        <MenuItem onClick={handlerNav('/')}>Main</MenuItem>
-        <MenuItem onClick={handlerNav('/about')}>About</MenuItem>
-        <MenuItem onClick={handlerNav('/send')}>Mail</MenuItem>
+        <MenuItem onClick={handlerNav('/')}>Главная</MenuItem>
+        <MenuItem onClick={handlerNav('/about')}>Контакты</MenuItem>
+        <MenuItem onClick={handlerNav('/send')}>Почта</MenuItem>
     </Modal>
     )
 }

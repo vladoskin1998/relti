@@ -93,7 +93,7 @@ export const TargetBox = (props: any): ReactElement => {
                 />
             </Box>
             <Box>
-                Download File - jpeg, jpg, png
+                Загрузите файл - jpeg, jpg, png
             </Box>
         </Box>
     )

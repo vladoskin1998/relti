@@ -6,7 +6,6 @@ import { CardActionArea } from '@mui/material';
 import { PostItemInterface } from '../../types/types'
 import ListSlick from './listSlick'
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
 import { ROLE } from '../../enum/enum'
 import { parseToken } from '../../actions/parseToken'
 import { api } from '../../api/api'
@@ -16,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { AxiosResponse } from 'axios';
 import { useSelector } from 'react-redux'
 import { RootState } from '../../store/store'
+import Box from '@mui/material/Box';
 
 export default function ListItem({
     post,
@@ -25,8 +25,12 @@ export default function ListItem({
     getList: (n?: number) => void,
 }) {
 
-    const { city, street, address, price, _id, currency, areas } = post
+    const { city, street, address, price, _id,
+        currency, areas, square, numberOfStoreys, storey } = post
     const { setLoader, setAlert } = useContext(LoaderContext)
+
+    console.log("areas--->");
+    
 
     const filter = useSelector((state: RootState) => state.ChangeFilter)
     const navigation = useNavigate()
@@ -51,15 +55,48 @@ export default function ListItem({
             <Box onClick={() => navigation(`/slick`, { state: { images: post?.images } })}>
                 <ListSlick images={post?.images || []} />
             </Box>
-            <CardContent>
+            <CardContent sx={{ '& div::first-letter': { textTransform: "uppercase" } }}>
+                <Box sx={{ display: 'flex', columnGap: "5px" }} component="div">
+                    <Typography gutterBottom variant="subtitle1" component="span">
+                        г.
+                    </Typography>
+                    <Typography gutterBottom variant="subtitle1" component="div">
+                        {city as unknown as string},
+                    </Typography>
+                    {
+                        areas
+                            ? 
+                            <>
+                            <Typography gutterBottom variant="subtitle1" component="span">
+                                р-н.
+                            </Typography>
+                            <Typography gutterBottom variant="subtitle1" component="div">
+                                {areas as unknown as string},
+                            </Typography>
+                            </>
+                            : <></>
+                    }
+                    <Typography gutterBottom variant="subtitle1" component="span">
+                        ул.
+                    </Typography>
+                    <Typography gutterBottom variant="subtitle1" component="div">
+                        {`${street}, ${address}`}
+                    </Typography>
+                </Box>
                 <Typography gutterBottom variant="h6" component="div">
-                    {`${city.label}, ${areas.label}, ${street.label}, ${address}`}
-                </Typography>
-                <Typography gutterBottom variant="h5" component="div">
                     {`${price} ${currency}`}
                 </Typography>
+                <Typography gutterBottom variant="subtitle2" component="div">
+                    Площадь: {square} м<sup>2</sup>
+                </Typography>
+                <Typography gutterBottom variant="subtitle2" component="div">
+                    Этажность: {numberOfStoreys}
+                </Typography>
+                <Typography gutterBottom variant="subtitle2" component="div">
+                    Этаж: {storey}
+                </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {post.describe}
+                    {post?.describe ? `Описание: ${post.describe}` : ''}
                 </Typography>
                 {
                     ROLE.ADMIN === parseToken.payload?.role

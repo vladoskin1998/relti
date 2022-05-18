@@ -34,6 +34,8 @@ export default function Auth() {
         password: false
     })
 
+    const [buttonLabel, setButtonLabel] = useState('Войти')
+
     const { setAlert } = useContext(Context)
 
     useEffect(() => {
@@ -131,12 +133,15 @@ export default function Auth() {
         switch (a) {
             case AUTH.LOGIN:
                 loginProfile()
+                setButtonLabel('Войти')
                 break;
             case AUTH.REGISTRATION:
                 registrationProfile()
+                setButtonLabel('3арегистрироваться')
                 break;
             case AUTH.CHANGE_PASSWORD:
                 changePassword()
+                setButtonLabel('Сменить пароль')
                 break;
             default:
                 console.log("error")
@@ -150,7 +155,7 @@ export default function Auth() {
         </Typography>
         <Box className="auth__input">
             <TextField id="outlined-basic"
-                label="Login"
+                label="Логин"
                 variant="outlined"
                 value={login}
                 onChange={e => setLogin(e.target.value)}
@@ -161,7 +166,7 @@ export default function Auth() {
                 password={password}
                 setPassword={setPassword}
                 valid={validInput.password}
-                label={state?.auth === AUTH.CHANGE_PASSWORD ? "New password" : "Password"}
+                label={state?.auth === AUTH.CHANGE_PASSWORD ? "Новый пароль" : "Пароль"}
             />
             {
                 state?.auth === AUTH.CHANGE_PASSWORD
@@ -169,7 +174,7 @@ export default function Auth() {
                         password={newPassword}
                         setPassword={setNewPassword}
                         valid={validInput.password}
-                        label={"Repeat password"}
+                        label={"Повторите пароль"}
                     />
                     : <></>
             }
@@ -178,12 +183,12 @@ export default function Auth() {
             <Button variant="contained"
                 onClick={() => caseHandler(state?.auth)}
             >
-                {state?.auth}
+                {buttonLabel}
             </Button>
             {
                 state?.auth === AUTH.LOGIN
                     ? <Button onClick={() => navigation('/auth', { state: { auth: AUTH.CHANGE_PASSWORD } })}>
-                        Forgot password
+                        Сменить пароль
                     </Button>
                     : <></>
             }

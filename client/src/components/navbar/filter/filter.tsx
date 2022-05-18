@@ -5,7 +5,6 @@ import Modal from '../../../ui/modal';
 import Button from '@mui/material/Button';
 import { useDispatch } from 'react-redux';
 import Context from '../../../context/context';
-import { useDelayInput } from '../../../hooks/useDelayInput';
 
 export default function Filter({
     anchorEl,
@@ -36,8 +35,8 @@ export default function Filter({
         <RenderCbLab />
         <RadioButtonsGroup />
         <Box component="div" sx={{ display: "flex", justifyContent: "flex-end", columnGap: "20px" }}>
-            <Button variant="outlined" onClick={handlerCancel}>Cancel</Button>
-            <Button variant="contained" onClick={handlerOK}>Ok</Button>
+            <Button variant="outlined" onClick={handlerCancel}>Отмена</Button>
+            <Button variant="contained" onClick={handlerOK}>Подтвердить</Button>
         </Box>
     </Modal>)
 }

@@ -49,15 +49,14 @@ export default function Send() {
     return (
         <Box component="div" className="send">
             <Typography variant="h6" gutterBottom component="div">
-                Text Mail
+                Отправить письмо риелтору
             </Typography>
             <Typography variant="subtitle1" gutterBottom component="div">
-                subtitle1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-                blanditiis tenetur
+                Письмо будет рассмотрено в течении 24 часов и ответ будет дан на Вашу почту.
             </Typography>
             <TextareaAutosize
                 aria-label="minimum height"
-                placeholder="Your message"
+                placeholder="Ваше сообщение"
                 className='add__text-area'
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
@@ -75,12 +74,12 @@ export default function Send() {
                         : <Button>
                             <label htmlFor="myfile" className='send__attach'>
                                 <AttachFileIcon />
-                                Attach File
+                                Прикрепить файл
                             </label>
                         </Button>
                 }
                 <input type="file" id="myfile" name="myfile" onChange={e => setFiles(e.target.files)} />
-                <Button variant="contained" onClick={send}>Send</Button>
+                <Button variant="contained" onClick={send}>Отправить</Button>
             </Box>
         </Box>
     );

@@ -33,25 +33,25 @@ export default function SecondLine(): ReactElement {
     return (
         <>
             <TextField value={numberOfStoreys} onChange={e => handlerInput(e, "AP__NUM__STOREYS")}
-          //      onBlur={() => handlerValidate('city', !city)}
-                helperText={validInput.city ? "number of storeys" : "number of storeys"}
+                //      onBlur={() => handlerValidate('city', !city)}
+                helperText="Не обязательное поле"
                 label="Этажность"
                 variant="outlined"
                 error={validInput.city}
                 type="number"
             />
             <TextField value={storey} onChange={e => handlerInput(e, "AP__STOREYS")}
-            //    onBlur={() => handlerValidate('street', !street)}
-                helperText={validInput.street ? "Incorrect entry." : "Input street"}
+                //    onBlur={() => handlerValidate('street', !street)}
+                helperText="Не обязательное поле"
                 label="Этаж"
                 variant="outlined"
                 error={validInput.street}
                 type="number"
             />
             <TextField value={square} onChange={e => handlerInput(e, "AP__SQUARE")}
-          //      onBlur={() => handlerValidate('address', !address)}
-                helperText={validInput.address ? "Incorrect entry." : "Input address"}
-                label="Площадь"
+                //      onBlur={() => handlerValidate('address', !address)}
+                helperText="Обязательное поле"
+                label={<>Площадь, м<sup>2</sup></>}
                 variant="outlined"
                 error={validInput.address}
                 type="number"
@@ -59,7 +59,7 @@ export default function SecondLine(): ReactElement {
             <Box className="add__input-price">
                 <TextField value={price} onChange={e => handlerInput(e, "AP__PRICE")}
                     onBlur={() => handlerValidate('price', !price)}
-                    helperText={validInput.price ? "Incorrect entry." : "Input price"}
+                    helperText="Обязательное поле"
                     label="Цена"
                     variant="outlined"
                     error={validInput.price}
@@ -73,7 +73,7 @@ export default function SecondLine(): ReactElement {
                 </Box>
             </Box>
 
-            
+
         </>
     );
 }

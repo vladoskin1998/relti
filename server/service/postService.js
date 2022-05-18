@@ -2,6 +2,7 @@ import Post from '../model/post.js'
 import fileService from './fileService.js'
 import PaginationDto from '../dto/paginationDto.js'
 import { LIMIT_PAGE } from '../conf.js'
+import GeoService from './geoService.js'
 
 class PostService {
 
@@ -17,22 +18,27 @@ class PostService {
             sort: ['asc', 'desc'].includes(select) ? { price: select } : { date: select },
         };
 
-        const getFromDB = await Post.paginate(query, options, function (err, result) {
+        const paginationPosts = await Post.paginate(query, options, function (err, result) {
 
             const { docs, totalPages } = result
 
             return { docs, totalPages }
         });
 
-        return getFromDB
+        console.log(paginationPosts)
+
+        return paginationPosts
     }
 
     async addPost(post, files) {
 
         try {
-            const clientPost = JSON.parse(post)
-            const { city, street, areas } = JSON.parse(post)
-            console.log(clientPost)
+            const parcePost = JSON.parse(post)
+            const { city, street } = JSON.parse(post)
+
+            await GeoService.addGeoData(parcePost)
+            
+            
 
             let images = []
             for (let key in files) {
@@ -40,7 +46,7 @@ class PostService {
             }
 
             const newPost = {
-                ...clientPost, city: city?.label, areas: areas?.label, street: street?.label,
+                ...parcePost, city: city?.label, areas: parcePost?.areas?.label || '', street: street?.label,
                 images: images.map(image => fileService.saveFile(image))
             }
 
