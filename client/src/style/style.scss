@@ -13,7 +13,7 @@ input[type="number"] {
 
 body {
     margin: 0;
-    padding-top: 55px;
+    padding-top: 75px;
     font-family: "Roboto", sans-serif;
     min-height: 100vh;
     background-color: white;
@@ -109,7 +109,7 @@ body {
     min-height: calc(100vh - 100px);
     row-gap: 15px;
     position: relative;
-    &__close{
+    &__close {
         position: absolute !important;
         top: 5px;
         right: 5px;
@@ -117,7 +117,7 @@ body {
             fill: white;
         }
     }
-    & img{
+    & img {
         width: 60vw;
         height: auto;
     }
@@ -133,7 +133,7 @@ body {
 
 .add {
     padding: 20px;
-    &__body{
+    &__body {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         column-gap: 20px;
@@ -253,7 +253,7 @@ body {
     }
 }
 
-.react-select-container{
+.react-select-container {
     height: 56px;
 }
 
@@ -362,8 +362,8 @@ body {
     .add__text-area {
         height: 45vh !important;
     }
-    .modal{
-        & img{
+    .modal {
+        & img {
             width: 95vw;
         }
     }

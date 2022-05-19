@@ -39,14 +39,17 @@ export default function ImageDND({ droppedFiles, setDroppedFiles }: { droppedFil
     }, [droppedFiles])
 
 
-    return (<DndProvider backend={HTML5Backend}>
-        <TargetBox onDrop={handleFileDrop} />
-        {
-            droppedFiles.length
-                ? <Box sx={{ paddingTop: "15px" }}>{fileList}</Box>
-                : <></>
-        }
-    </DndProvider>
+    return (
+        <Box>
+            <DndProvider backend={HTML5Backend}>
+                <TargetBox onDrop={handleFileDrop} />
+                {
+                    droppedFiles.length
+                        ? <Box sx={{ paddingTop: "15px" }}>{fileList}</Box>
+                        : <></>
+                }
+            </DndProvider>
+        </Box >
     )
 
 }
