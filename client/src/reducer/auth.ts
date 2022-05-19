@@ -3,7 +3,7 @@ export interface AuthInterface {
 }
 
 const initState: AuthInterface = {
-    accessToken: '' || localStorage.getItem('accessToken')
+    accessToken: ''
 }
 
 export const AuthReducer = (state = initState, action: { type: string, payload: any }): AuthInterface => {
@@ -15,8 +15,9 @@ export const AuthReducer = (state = initState, action: { type: string, payload: 
         case "AUTH_DELETE":
             localStorage.removeItem('accessToken')
             state = { ...state, accessToken: '' }
+            return state
         default:
-            return initState
+            return state
     }
 }
 

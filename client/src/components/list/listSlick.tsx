@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useState, useEffect } from "react";
 import Slider from "react-slick";
 import CardMedia from '@mui/material/CardMedia';
 import Box from '@mui/material/Box';
@@ -22,6 +22,9 @@ export default function ListSlich({ images, open = false }: { images: string[], 
         afterChange: (index: number) => setPage(index + 1),
     };
 
+
+
+
     return (
         <>
             <Slider {...settings}>
@@ -29,7 +32,7 @@ export default function ListSlich({ images, open = false }: { images: string[], 
                     <Box className="list__item" key={image + index}>
                         <CardMedia
                             component="img"
-                            image={`${baseURL}/images/${image}`}
+                            image={page === index + 1 ? `${baseURL}/images/${image}` : ''}
                             alt="Not found images"
                             className="list__item-img"
                         />

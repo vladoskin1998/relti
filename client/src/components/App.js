@@ -3,7 +3,7 @@ import Navigation from "./navbar/navigation.tsx";
 import List from './list/list.tsx';
 import '../style/style.scss'
 import NewPost from './new-post/newPost';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Loader from '../ui/loader.tsx';
 import Auth from './auth/auth'
@@ -22,6 +22,8 @@ function App() {
     const [loader, setLoader] = useState(false)
 
     const [alert, setAlert] = useState({status:ALERT.NONE, message: ""})
+
+    const {accessToken} = useSelector(state=> state.AuthReducer)
 
     const dispatch = useDispatch()
 
@@ -55,13 +57,13 @@ function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/auth" element={<Auth />} />
                 {
-                    localStorage.getItem('accessToken')
+                    accessToken
                         ? <Route path="/send" element={<Send />} />
                         : <Route path="*" element={<Navigate to="/auth" state={{ from: location, auth: AUTH.LOGIN }} replace />} />
 
                 }
                 {
-                    localStorage.getItem('accessToken') && ROLE.ADMIN === parseToken?.payload?.role
+                    accessToken && ROLE.ADMIN === parseToken?.payload(accessToken)?.role
                         ? <Route path="/add-post" element={<NewPost />} />
                         : <Route path="*" element={<Navigate to="/auth" state={{ auth: AUTH.LOGIN }} replace />} />
 

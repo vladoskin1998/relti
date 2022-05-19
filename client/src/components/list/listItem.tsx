@@ -29,8 +29,9 @@ export default function ListItem({
         currency, areas, square, numberOfStoreys, storey } = post
     const { setLoader, setAlert } = useContext(LoaderContext)
 
-    console.log("areas--->");
-    
+
+
+    const { accessToken } = useSelector((state: RootState) => state.AuthReducer)
 
     const filter = useSelector((state: RootState) => state.ChangeFilter)
     const navigation = useNavigate()
@@ -65,14 +66,14 @@ export default function ListItem({
                     </Typography>
                     {
                         areas
-                            ? 
+                            ?
                             <>
-                            <Typography gutterBottom variant="subtitle1" component="span">
-                                р-н.
-                            </Typography>
-                            <Typography gutterBottom variant="subtitle1" component="div">
-                                {areas as unknown as string},
-                            </Typography>
+                                <Typography gutterBottom variant="subtitle1" component="span">
+                                    р-н.
+                                </Typography>
+                                <Typography gutterBottom variant="subtitle1" component="div">
+                                    {areas as unknown as string},
+                                </Typography>
                             </>
                             : <></>
                     }
@@ -99,7 +100,7 @@ export default function ListItem({
                     {post?.describe ? `Описание: ${post.describe}` : ''}
                 </Typography>
                 {
-                    ROLE.ADMIN === parseToken.payload?.role
+                    ROLE.ADMIN === parseToken?.payload(accessToken)?.role
                         ? <Box sx={{ display: "flex", justifyContent: "flex-end", paddingTop: "10px" }}>
                             <Button variant="outlined" color="error" onClick={() => deletePost(_id)}>
                                 DELETE
@@ -109,7 +110,6 @@ export default function ListItem({
                 }
             </CardContent>
         </CardActionArea>
-
     </Card>
     );
 }

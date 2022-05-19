@@ -54,6 +54,6 @@ export const AddPost = (state = initState, action: { type: string, payload: any 
             state = { ...initState }
             return state
         default:
-            return initState;
+            return state;
     }
 }

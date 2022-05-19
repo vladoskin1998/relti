@@ -151,7 +151,7 @@ export default function Auth() {
 
     return <Box component="div" className="auth">
         <Typography variant="h4" component="div" gutterBottom>
-            {state?.auth}
+            {buttonLabel}
         </Typography>
         <Box className="auth__input">
             <TextField id="outlined-basic"

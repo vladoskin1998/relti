@@ -37,6 +37,6 @@ export const ChangeFilter = (state = initState, action: { type: string, payload:
             state={...initState}
             return state
         default:
-            return initState;
+            return state;
     }
 }

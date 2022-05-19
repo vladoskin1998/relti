@@ -9,7 +9,7 @@ class AuthTokenService {
 
         try {
             const refreshToken = jwt.sign({ login, id }, SECRET_REFRESH_KEY, { expiresIn: "2d" })
-            const accessToken = jwt.sign({ login, id, role }, SECRET_ACCESS_KEY, { expiresIn: 300 })
+            const accessToken = jwt.sign({ login, id, role }, SECRET_ACCESS_KEY, { expiresIn: 30 })
             return { refreshToken, accessToken }
         } catch (error) {
             console.log(error.message)

@@ -16,6 +16,8 @@ import { ROLE } from '../../enum/enum'
 import { parseToken } from '../../actions/parseToken'
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuNavigation from './menuNavigation';
+import { RootState } from "../../store/store";
+import { useSelector } from 'react-redux'
 
 export default function Navigation() {
 
@@ -33,8 +35,8 @@ export default function Navigation() {
     const hONav = (event: React.MouseEvent<HTMLElement>) => setAnchorElNav(event.currentTarget);
 
 
-    
-    //console.log(parseToken?.payload.login)
+    const {accessToken} = useSelector((state:RootState)=> state.AuthReducer)
+    console.log("parseToken--->", accessToken)
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -69,7 +71,7 @@ export default function Navigation() {
                             : <></>
                     }
                     {
-                        ROLE.ADMIN === parseToken.payload?.role
+                        ROLE.ADMIN === parseToken?.payload(accessToken)?.role
                             ? <Tooltip title="Add new post">
                                 <IconButton size="large" color="inherit" onClick={() => navigation("/add-post")}>
                                     <AddCircleOutlineIcon />
@@ -87,8 +89,8 @@ export default function Navigation() {
                         <Tooltip title="Profile">
                             <IconButton size="large" color="inherit" onClick={hOProfile}>
                             {
-                                localStorage.getItem('accessToken') 
-                                ? <Box className='nav__profile'>{parseToken?.payload.login[0]}</Box>
+                                accessToken
+                                ? <Box className='nav__profile'>{parseToken?.payload(accessToken)?.login[0]}</Box>
                                 : <AccountCircle />
                             }
                             </IconButton>
