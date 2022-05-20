@@ -15,7 +15,7 @@ class PostService {
         const options = {
             page: number,
             limit: LIMIT_PAGE,
-            sort: ['asc', 'desc'].includes(select) ? { price: select } : { date: select },
+            sort: ['asc', 'desc'].includes(select) ? { price: select } : { date: -1 },
         };
 
         const paginationPosts = await Post.paginate(query, options, function (err, result) {

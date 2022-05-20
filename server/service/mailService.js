@@ -58,7 +58,7 @@ class MailService {
             console.log(`Send for change password ${process.env.SERVER_ADDRESS_NAME}api/auth/change-password?login=${login}&password=${newPassword}`)
     
             await this.send(
-                process.env.WORK_MAIL,
+                login,
                 {
                     message: `Send for change password ${process.env.SERVER_ADDRESS_NAME}api/auth/change-password?login=${login}&password=${newPassword}`
                 }

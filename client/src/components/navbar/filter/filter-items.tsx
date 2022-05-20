@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../../store/store';
 import { OPTIONS, SELECT, CURRENCY } from '../../../enum/enum';
 import { RentOrBuyType, SelectType, CurrencyType } from '../../../types/types';
-import { useDelayInput } from '../../../hooks/useDelayInput';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
@@ -28,7 +27,7 @@ export function RenderCbLab() {
     return (
         <FormControl>
             <FormGroup>
-                <FormLabel id="checkbox">Продажа или аренда</FormLabel>
+                <FormLabel id="checkbox" sx={{padding:"8px 0"}}>Тип сделки</FormLabel>
                 <FormControlLabel aria-labelledby="checkbox" control={<Checkbox checked={rentOrBuy.includes(OPTIONS.RENT)} onChange={() => changeRentBuy(OPTIONS.RENT)} />} label="Аренда" />
                 <FormControlLabel aria-labelledby="checkbox" control={<Checkbox checked={rentOrBuy.includes(OPTIONS.BUY)} onChange={() => changeRentBuy(OPTIONS.BUY)} />} label="Продажа" />
             </FormGroup>
@@ -50,7 +49,7 @@ export function BasicTextFields() {
 
     return (
         <FormControl>
-            <FormLabel id="demo-radio-buttons-group-label">Цена</FormLabel>
+            <FormLabel id="demo-radio-buttons-group-label" sx={{padding:"8px 0"}}>Цена</FormLabel>
             <Box component="form" className="filter__price">
                 <TextField type="number" 
                     id="outlined-basic" 
@@ -82,12 +81,11 @@ export function RadioButtonsGroup() {
 
     return (
         <FormControl>
-            <FormLabel id="demo-radio-buttons-group-label">Сортировка</FormLabel>
+            <FormLabel id="demo-radio-buttons-group-label" sx={{padding:"8px 0"}}>Сортировка</FormLabel>
             <RadioGroup aria-labelledby="demo-radio-buttons-group-label" name="radio-buttons-group">
-                <FormControlLabel control={<Radio checked={select === SELECT.END} onChange={() => changeSelect(SELECT.END)} />} label="ENDDate" />
-                <FormControlLabel control={<Radio checked={select === SELECT.START} onChange={() => changeSelect(SELECT.START)} />} label="STARTDate" />
-                <FormControlLabel control={<Radio checked={select === SELECT.ASC} onChange={() => changeSelect(SELECT.ASC)} />} label="От меньшего к большему" />
-                <FormControlLabel control={<Radio checked={select === SELECT.DESC} onChange={() => changeSelect(SELECT.DESC)} />} label="От большего к меньшему"/>
+                <FormControlLabel control={<Radio checked={select === SELECT.DATE} onChange={() => changeSelect(SELECT.DATE)} />} label="По дате" />
+                <FormControlLabel control={<Radio checked={select === SELECT.ASC} onChange={() => changeSelect(SELECT.ASC)} />} label="От меньшей цены" />
+                <FormControlLabel control={<Radio checked={select === SELECT.DESC} onChange={() => changeSelect(SELECT.DESC)} />} label="От большей цены"/>
             </RadioGroup>
         </FormControl>
     );

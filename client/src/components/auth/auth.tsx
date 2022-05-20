@@ -49,6 +49,7 @@ export default function Auth() {
         setPassword('')
         setNewPassword('')
         setValidInput({ login: false, password: false })
+        labelPage(state?.auth)
     }, [state])
 
     const checkForm = (message: ErrorAuthType) => {
@@ -85,7 +86,7 @@ export default function Auth() {
             .then((res: AxiosResponse<AuthResponseInterface>) => {
                 navigate(state?.from?.pathname || '/')
                 dispatch({ type: "AUTH_UPDATE", payload: res.data?.accessToken })
-                setAlert({ status: ALERT.SUCCESS, message: "You login as user" })
+                setAlert({ status: ALERT.SUCCESS, message: "Вы вошли в личный кабинет" })
             })
             .catch(e => console.log("error", e?.message))
     }
@@ -97,7 +98,7 @@ export default function Auth() {
             .then((res: AxiosResponse<AuthResponseInterface>) => {
                 navigate(state?.from?.pathname || '/')
                 dispatch({ type: "AUTH_UPDATE", payload: res.data?.accessToken })
-                setAlert({ status: ALERT.SUCCESS, message: "You login as user" })
+                setAlert({ status: ALERT.SUCCESS, message: "Вы вошли в личный кабинет" })
             })
             .catch(e => {
                 checkForm(e?.response?.data?.message)
@@ -120,7 +121,7 @@ export default function Auth() {
             login, password
         })
             .then(() => {
-                setAlert({ status: ALERT.SUCCESS, message: "A password confirmation email has been sent to your email address. Follow the link to confirm" })
+                setAlert({ status: ALERT.SUCCESS, message: "На ваш адрес электронной почты отправлено письмо с подтверждением пароля. Перейдите по ссылке, чтобы подтвердить." })
                 navigation('/auth', { state: { auth: AUTH.LOGIN } })
                 console.log("SEND CHANGE PASSWORD")
             })
@@ -145,6 +146,23 @@ export default function Auth() {
                 break;
             default:
                 console.log("error")
+                break;
+        }
+    }
+
+    const labelPage = (a: AuthType) => {
+        switch (a) {
+            case AUTH.LOGIN:
+                setButtonLabel('Войти')
+                break;
+            case AUTH.REGISTRATION:
+                setButtonLabel('3арегистрироваться')
+                break;
+            case AUTH.CHANGE_PASSWORD:
+                setButtonLabel('Сменить пароль')
+                break;
+            default:
+                setButtonLabel('Войти')
                 break;
         }
     }
@@ -174,7 +192,7 @@ export default function Auth() {
                         password={newPassword}
                         setPassword={setNewPassword}
                         valid={validInput.password}
-                        label={"Повторите пароль"}
+                        label="Повторите пароль"
                     />
                     : <></>
             }

@@ -31,7 +31,7 @@ class AuthController {
 
         const query = url.parse(req.url, true).query;
         await authService.changePassword(query)
-        return res.json("Send email")
+        return res.json("Ваш пароль успешно изменен, войдите в свой кабинет.")
 
     }
 

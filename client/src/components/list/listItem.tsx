@@ -42,7 +42,7 @@ export default function ListItem({
         api.post('/post/delete-post', { id: id, filter: filter })
             .then((res: AxiosResponse<{ totalPages: number }>) => {
                 setLoader(false)
-                setAlert({ status: ALERT.SUCCESS, message: "post successful delete" })
+                setAlert({ status: ALERT.ERROR, message: "Пост успешно удален" })
                 getList(res.data.totalPages)
             })
             .catch((error) => {
@@ -103,7 +103,7 @@ export default function ListItem({
                     ROLE.ADMIN === parseToken?.payload(accessToken)?.role
                         ? <Box sx={{ display: "flex", justifyContent: "flex-end", paddingTop: "10px" }}>
                             <Button variant="outlined" color="error" onClick={() => deletePost(_id)}>
-                                DELETE
+                                Удалить
                             </Button>
                         </Box>
                         : <></>

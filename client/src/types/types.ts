@@ -27,7 +27,7 @@ export interface PostItemInterface{
     images?: string[],
 }
 
-export type SelectType = SELECT.ASC | SELECT.DESC | SELECT.START | SELECT.END  
+export type SelectType = SELECT.ASC | SELECT.DESC | SELECT.DATE
 
 
 export interface FilterInterface{

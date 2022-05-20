@@ -42,7 +42,7 @@ export default function Navigation() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <Tooltip title="Main">
+                    <Tooltip title="Главная">
                         <>
                             <Typography
                                 variant="h6"
@@ -62,7 +62,7 @@ export default function Navigation() {
                         location.pathname === '/'
                             ? <>
                                 <FilterSearch />
-                                <Tooltip title="Filter">
+                                <Tooltip title="Фильтры">
                                     <IconButton size="large" color="inherit" onClick={hOFilter}>
                                         <FilterAltIcon />
                                     </IconButton>
@@ -72,7 +72,7 @@ export default function Navigation() {
                     }
                     {
                         ROLE.ADMIN === parseToken?.payload(accessToken)?.role
-                            ? <Tooltip title="Add new post">
+                            ? <Tooltip title="Новый пост">
                                 <IconButton size="large" color="inherit" onClick={() => navigation("/add-post")}>
                                     <AddCircleOutlineIcon />
                                 </IconButton >
@@ -86,7 +86,7 @@ export default function Navigation() {
                             <Box onClick={() => navigation('/about')} >Контакты</Box>
                             <Box onClick={() => navigation('/send')} >Почта</Box>
                         </Box>
-                        <Tooltip title="Profile">
+                        <Tooltip title="Профиль">
                             <IconButton size="large" color="inherit" onClick={hOProfile}>
                             {
                                 accessToken

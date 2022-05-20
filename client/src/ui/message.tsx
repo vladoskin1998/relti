@@ -23,14 +23,14 @@ export default function AlertMessage({ alert }: { alert: { status: AlertType, me
                 return (
                     <Alert severity="error">
                         <AlertTitle>DELETE</AlertTitle>
-                        {alert.message} — <strong>check it out!</strong>
+                        {alert.message}
                     </Alert>
                 )
             case ALERT.SUCCESS:
                 return (
                     <Alert severity="success">
                         <AlertTitle>Success</AlertTitle>
-                        {alert.message} — <strong>check it out!</strong>
+                        {alert.message}
                     </Alert>
                 )
             default:

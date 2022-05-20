@@ -35,13 +35,14 @@ export default function Send() {
 
         api.post('/mail/send', formData, { headers: { 'Content-Type': 'multipart/form-data' } })
             .then(() => {
-                setAlert({status: ALERT.SUCCESS, message: "send mail success" })
+                setAlert({status: ALERT.SUCCESS, message: "Письмо успешно отправлено риелтору" })
                 setMessage('')
                 setFiles(null)
                 setLoader(false)
             })
             .catch(function (error) {
-                console.log(error);
+                
+                setAlert({status: ALERT.ERROR, message: "Письмо не отправлено, свяжитесь с администратором по телефону указаному в контактах" })
                 setLoader(false)
             });
     }

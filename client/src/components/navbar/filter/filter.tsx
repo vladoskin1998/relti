@@ -29,7 +29,7 @@ export default function Filter({
     return (<Modal
         anchorEl={anchorEl}
         handleMenuClose={handleMenuClose}
-        sx={{ '&>div': { padding: "20px" }, '& ul': { display: "flex", flexDirection: "column" } }}
+        sx={{ '&>div': { padding: "20px" }, '& ul': { display: "flex", flexDirection: "column"} }}
     >
         <BasicTextFields />
         <RenderCbLab />

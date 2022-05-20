@@ -5,7 +5,7 @@ const initState: FilterInterface = {
     street: null,
     price: {toPrice:null, fromPrice:null},
     rentOrBuy: [OPTIONS.BUY, OPTIONS.RENT],
-    select: SELECT.END,
+    select: SELECT.DATE,
     currency: CURRENCY.UAH,
 }
 
