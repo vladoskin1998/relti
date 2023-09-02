@@ -19,6 +19,9 @@ if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
 }
 
+
+console.log(process.env)
+
 app.use(express.json())
 
 app.use(fileUpload({}))
