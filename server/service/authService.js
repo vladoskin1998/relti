@@ -30,9 +30,10 @@ class AuthService {
     async login({ login, password }) {
 
         const user = await User.findOne({ login })
+        console.log(user);
 
         if (!user) {
-            throw ErrorsApi.badRequest("ERROR_LOG", 400)
+            throw ErrorsApi.badRequest("ERROR_LOG-Auth", 400)
         }
 
         const checkPass = await bcrypt.compare(password, user.password)

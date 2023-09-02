@@ -39,7 +39,7 @@ app.use(cors({
     credentials: true,
   //  origin: 'http://localhost:3000'
      //   origin: process.env.SERVER_ADDRESS_NAME 
-     origin:  'https://test-tealty.onrender.com/'
+     origin:  ['https://test-tealty.onrender.com/','http://localhost:3000' ]
 }))
 app.use('/api', router)
 app.use(ErrorsMiddleware);
