@@ -25,15 +25,15 @@ app.use(fileUpload({}))
 app.use('/images', express.static(__dirname + '/images'));
 app.use(cookieParser())
 app.use(cors({
-     credentials: true, 
-    origin: 'http://localhost:3000'
-  //  origin: process.env.SERVER_ADDRESS_NAME 
-    }))
+    credentials: true,
+   // origin: 'http://localhost:3000'
+        origin: process.env.SERVER_ADDRESS_NAME 
+}))
 app.use('/api', router)
 app.use(ErrorsMiddleware);
 
-app.use((req, res, next) => { 
-    res.sendFile(path.join(__dirname, "client", "build", "index.html")); 
+app.use((req, res, next) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
 async function main() {
