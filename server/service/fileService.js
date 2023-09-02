@@ -7,7 +7,8 @@ const __dirname = path.resolve()
 class FileService {
     saveFile(image) {
         try {
-            const fileName = uuid.v1() + '.png'
+            const fileName = `${uuid.v4()}.${image?.mimetype.split('/')[1]}`;
+            console.log("fileName---->", fileName);
             const dir = path.join(__dirname,'images', fileName)
             image.mv(dir)
             return fileName
