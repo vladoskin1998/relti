@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 
-console.log(process.env.PORT)
+
 console.log(process.env.PORT)
 console.log(process.env.SECRET_REFRESH_KEY)
 console.log(process.env.SECRET_ACCESS_KEY)
@@ -37,8 +37,9 @@ app.use('/images', express.static(__dirname + '/images'));
 app.use(cookieParser())
 app.use(cors({
     credentials: true,
-   // origin: 'http://localhost:3000'
-        origin: process.env.SERVER_ADDRESS_NAME 
+  //  origin: 'http://localhost:3000'
+     //   origin: process.env.SERVER_ADDRESS_NAME 
+     origin:  'https://test-tealty.onrender.com/'
 }))
 app.use('/api', router)
 app.use(ErrorsMiddleware);
@@ -50,7 +51,7 @@ app.use((req, res, next) => {
 async function main() {
     const DB = await mongoose.connect(URL_DB, { useUnifiedTopology: true, useNewUrlParser: true })
     try {
-        app.listen(PORT, () => { console.log(`SERVER WORK ${PORT}`) })
+        app.listen(PORT, () => { console.log(`SERVER WORK -------> ${PORT}`) })
     } catch (error) {
         DB.disconnect();
         console.log(error.message)
