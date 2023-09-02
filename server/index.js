@@ -20,7 +20,15 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 
-console.log(process.env)
+console.log(process.env.PORT)
+console.log(process.env.PORT)
+console.log(process.env.SECRET_REFRESH_KEY)
+console.log(process.env.SECRET_ACCESS_KEY)
+console.log(process.env.URL_DB)
+console.log(process.env.WORK_MAIL)
+console.log(process.env.NODE_ENV)
+console.log(process.env.SERVER_ADDRESS_NAME)
+
 
 app.use(express.json())
 
